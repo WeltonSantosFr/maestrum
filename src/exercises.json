@@ -1,0 +1,142 @@
+[
+  {
+    "id": 1,
+    "nome": "Escala Pentatônica",
+    "duracao": 600,
+    "bpmRecorde": 120,
+    "historico": [
+      { "data": "2025-12-27", "bpm": 115 },
+      { "data": "2025-12-26", "bpm": 118 },
+      { "data": "2025-12-25", "bpm": 112 },
+      { "data": "2025-12-24", "bpm": 120 },
+      { "data": "2025-12-23", "bpm": 117 }
+    ]
+  },
+  {
+    "id": 2,
+    "nome": "Arpejos Maiores",
+    "duracao": 300,
+    "bpmRecorde": 100,
+    "historico": [
+      { "data": "2025-12-27", "bpm": 95 },
+      { "data": "2025-12-26", "bpm": 98 },
+      { "data": "2025-12-25", "bpm": 92 }
+    ]
+  },
+  {
+    "id": 3,
+    "nome": "Escala Cromática",
+    "duracao": 450,
+    "bpmRecorde": 90,
+    "historico": [
+      { "data": "2025-12-27", "bpm": 85 },
+      { "data": "2025-12-26", "bpm": 88 },
+      { "data": "2025-12-25", "bpm": 82 },
+      { "data": "2025-12-24", "bpm": 90 }
+    ]
+  },
+  {
+    "id": 4,
+    "nome": "Escala Menor Harmônica",
+    "duracao": 10,
+    "bpmRecorde": 110,
+    "historico": [
+      { "data": "2025-12-27", "bpm": 105 },
+      { "data": "2025-12-26", "bpm": 108 }
+    ]
+  },
+  {
+    "id": 5,
+    "nome": "Arpejos Menores",
+    "duracao": 360,
+    "bpmRecorde": 95,
+    "historico": [
+      { "data": "2025-12-27", "bpm": 90 },
+      { "data": "2025-12-26", "bpm": 93 },
+      { "data": "2025-12-25", "bpm": 88 }
+    ]
+  },
+  {
+    "id": 6,
+    "nome": "Escala Blues",
+    "duracao": 420,
+    "bpmRecorde": 105,
+    "historico": [
+      { "data": "2025-12-27", "bpm": 100 },
+      { "data": "2025-12-26", "bpm": 103 }
+    ]
+  },
+  {
+    "id": 7,
+    "nome": "Arpejos Diminuídos",
+    "duracao": 540,
+    "bpmRecorde": 85,
+    "historico": [
+      { "data": "2025-12-27", "bpm": 80 },
+      { "data": "2025-12-26", "bpm": 83 },
+      { "data": "2025-12-25", "bpm": 78 }
+    ]
+  },
+  {
+    "id": 8,
+    "nome": "Escala Mixolídia",
+    "duracao": 390,
+    "bpmRecorde": 115,
+    "historico": [
+      { "data": "2025-12-27", "bpm": 110 },
+      { "data": "2025-12-26", "bpm": 113 }
+    ]
+  },
+  {
+    "id": 9,
+    "nome": "Arpejos de 7ª",
+    "duracao": 510,
+    "bpmRecorde": 92,
+    "historico": [
+      { "data": "2025-12-27", "bpm": 87 },
+      { "data": "2025-12-26", "bpm": 90 },
+      { "data": "2025-12-25", "bpm": 85 }
+    ]
+  },
+  {
+    "id": 10,
+    "nome": "Escala Dórica",
+    "duracao": 330,
+    "bpmRecorde": 108,
+    "historico": [
+      { "data": "2025-12-27", "bpm": 103 },
+      { "data": "2025-12-26", "bpm": 106 }
+    ]
+  },
+  {
+    "id": 11,
+    "nome": "Arpejos Aumentados",
+    "duracao": 450,
+    "bpmRecorde": 88,
+    "historico": [
+      { "data": "2025-12-27", "bpm": 83 },
+      { "data": "2025-12-26", "bpm": 86 }
+    ]
+  },
+  {
+    "id": 12,
+    "nome": "Escala Lídia",
+    "duracao": 420,
+    "bpmRecorde": 112,
+    "historico": [
+      { "data": "2025-12-27", "bpm": 107 },
+      { "data": "2025-12-26", "bpm": 110 },
+      { "data": "2025-12-25", "bpm": 105 }
+    ]
+  },
+  {
+    "id": 13,
+    "nome": "Arpejos de 9ª",
+    "duracao": 480,
+    "bpmRecorde": 96,
+    "historico": [
+      { "data": "2025-12-27", "bpm": 91 },
+      { "data": "2025-12-26", "bpm": 94 }
+    ]
+  }
+]

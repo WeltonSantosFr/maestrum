@@ -1,0 +1,22 @@
+.main-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: calc(100vh - 120px);
+  min-height: 600px; /* Minimum height for smaller screens */
+  overflow: hidden;
+}
+
+.left-panel {
+  padding: 16px;
+  overflow-y: auto;
+  max-height: 100%;
+}
+
+.right-panel {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+  max-height: 100%;
+}

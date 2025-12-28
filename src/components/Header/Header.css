@@ -1,0 +1,21 @@
+.header {
+  background-color: var(--bg-card);
+  width: 100vw;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.header img {
+  width: 60px;
+  height: 60px;
+}
+
+.header h1 {
+  color: var(--text-main);
+  margin-left: 20px;
+  line-height: 60px;
+  font-size: 1.5em;
+  font-weight: bold;
+}
