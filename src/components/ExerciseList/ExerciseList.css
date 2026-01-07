@@ -1,5 +1,6 @@
 .exercise-list-card {
-  border-radius: 8px;
+  border-radius: 0;
+  border: 2px solid black;
   padding: 16px;
   background-color: var(--bg-card);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -20,16 +21,18 @@
 
 .add-exercise-btn {
   padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  background-color: #28a745;
-  color: white;
+  border: 2px solid black;
+  border-radius: 0;
+  background-color: white;
+  color: black;
   cursor: pointer;
   font-size: 0.9em;
+  transition: background-color 0.3s, border-color 0.3s;
 }
 
 .add-exercise-btn:hover {
-  background-color: #218838;
+  background-color: #f0f0f0;
+  border-color: green;
 }
 
 .exercise-list {
@@ -43,8 +46,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  border: 2px solid black;
+  border-radius: 0;
   background-color: var(--bg-main);
   cursor: pointer;
   transition: background-color 0.2s;
@@ -77,25 +80,31 @@
 }
 
 .delete-exercise-btn {
-  background: none;
-  border: none;
-  color: #dc3545;
-  font-size: 20px;
-  font-weight: bold;
+  background: white;
+  border: 2px solid black;
+  color: black;
   cursor: pointer;
-  padding: 0 8px;
+  padding: 0;
   margin-left: 8px;
-  border-radius: 50%;
+  border-radius: 0;
   width: 24px;
   height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s;
+  transition: background-color 0.3s, border-color 0.3s;
+  line-height: 1;
+  transform: translateY(-1px);
+}
+
+.delete-exercise-btn svg {
+  width: 16px;
+  height: 16px;
 }
 
 .delete-exercise-btn:hover {
-  background-color: rgba(220, 53, 69, 0.1);
+  background-color: #ff6666;
+  border-color: red;
 }
 
 .modal-overlay {
@@ -113,7 +122,8 @@
 
 .modal-content {
   background-color: var(--bg-card);
-  border-radius: 8px;
+  border-radius: 0;
+  border: 2px solid black;
   padding: 24px;
   width: 90%;
   max-width: 400px;
@@ -147,8 +157,8 @@
 
 .form-group input {
   padding: 8px 12px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  border: 2px solid black;
+  border-radius: 0;
   background-color: var(--bg-main);
   color: var(--text-main);
   font-size: 1em;
@@ -156,8 +166,8 @@
 
 .form-group input:focus {
   outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  border-color: black;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.25);
 }
 
 .modal-actions {
@@ -169,26 +179,28 @@
 
 .cancel-btn {
   padding: 8px 16px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  background-color: transparent;
-  color: var(--text-main);
+  border: 2px solid black;
+  border-radius: 0;
+  background-color: white;
+  color: black;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .cancel-btn:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: #f0f0f0;
 }
 
 .save-btn {
   padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  background-color: #28a745;
-  color: white;
+  border: 2px solid black;
+  border-radius: 0;
+  background-color: white;
+  color: black;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .save-btn:hover {
-  background-color: #218838;
+  background-color: #f0f0f0;
 }

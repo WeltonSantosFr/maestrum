@@ -1,0 +1,129 @@
+/* LandingPage.css */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.landing-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: linear-gradient(-45deg, #1e3a8a, #3b82f6, #60a5fa, #93c5fd);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  color: white;
+  font-family: 'Anton', sans-serif;
+  text-align: center;
+  padding: 0 20px;
+  overflow: hidden;
+}
+
+.landing-header {
+  padding: 60px 0 40px;
+}
+
+.landing-title {
+  font-size: 4rem;
+  font-weight: bold;
+  margin: 0;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  background: linear-gradient(45deg, #fff, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.landing-subtitle {
+  font-size: 1.5rem;
+  margin: 10px 0 0;
+  opacity: 0.9;
+  font-weight: 300;
+}
+
+.landing-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.landing-description {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  margin-bottom: 50px;
+  opacity: 0.9;
+  font-weight: 400;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn {
+  display: inline-block;
+  padding: 15px 30px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 0;
+  background: white;
+  color: black;
+  border: 2px solid black;
+}
+
+
+
+.btn-primary {
+  background: white;
+  color: black;
+  border: 2px solid black;
+}
+
+.btn-primary:hover {
+  background: #f0f0f0;
+}
+
+.btn-secondary {
+  background: white;
+  color: black;
+  border: 2px solid black;
+}
+
+.btn-secondary:hover {
+  background: #f0f0f0;
+}
+
+.landing-footer {
+  padding: 20px 0;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .landing-title {
+    font-size: 3rem;
+  }
+  .landing-subtitle {
+    font-size: 1.2rem;
+  }
+  .landing-description {
+    font-size: 1rem;
+  }
+  .cta-buttons {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .btn {
+    padding: 12px 24px;
+    font-size: 1rem;
+  }
+}

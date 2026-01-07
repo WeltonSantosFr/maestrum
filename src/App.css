@@ -1,8 +1,8 @@
 .main-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  height: calc(100vh - 120px);
-  min-height: 600px; /* Minimum height for smaller screens */
+  height: 100vh;
+  min-height: fit-content;
   overflow: hidden;
 }
 

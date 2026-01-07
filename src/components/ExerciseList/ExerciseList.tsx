@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { MdClose } from 'react-icons/md';
 import ExerciseTimer from '../ExerciseTimer/ExerciseTimer';
 import './ExerciseList.css';
 
@@ -106,7 +107,7 @@ export default function ExerciseList({ selectedExercise, onSelectExercise, exerc
               className="delete-exercise-btn"
               title="Excluir exercício"
             >
-              ×
+              <MdClose />
             </button>
           </div>
         ))}

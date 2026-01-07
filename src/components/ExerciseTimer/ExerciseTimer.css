@@ -1,5 +1,6 @@
 .exercise-timer {
-  border-radius: 8px;
+  border-radius: 0;
+  border: 2px solid black;
   padding: 16px;
   margin-top: 16px;
   background-color: var(--bg-card);
@@ -12,9 +13,9 @@
   width: 200px;
   height: 200px;
   margin: 0 auto 16px;
-  border-radius: 50%;
+  border-radius: 0;
   background-color: var(--bg-main);
-  border: 2px solid #ddd;
+  border: 2px solid black;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -53,12 +54,17 @@
 
 .timer-controls button {
   padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  background-color: #007bff;
-  color: white;
+  border: 2px solid black;
+  border-radius: 0;
+  background-color: white;
+  color: black;
   cursor: pointer;
   font-size: 1em;
+  transition: background-color 0.3s;
+}
+
+.timer-controls button:hover {
+  background-color: #f0f0f0;
 }
 
 .timer-circle.warning {
@@ -78,7 +84,7 @@
   background-color: rgba(0, 0, 0, 0.8);
   color: white;
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 0;
   text-align: center;
   z-index: 10;
 }
@@ -86,13 +92,13 @@
 .warning-popup button {
   margin-top: 10px;
   padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  background-color: #007bff;
-  color: white;
+  border: 2px solid black;
+  border-radius: 0;
+  background-color: white;
+  color: black;
   cursor: pointer;
 }
 
 .warning-popup button:hover {
-  background-color: #0056b3;
+  background-color: #f0f0f0;
 }

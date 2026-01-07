@@ -1,9 +1,12 @@
 .exercise-details-card {
-  border-radius: 8px;
+  border-radius: 0;
+  border: 2px solid black;
   padding: 16px;
   background-color: var(--bg-card);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  flex: 1;
+  flex: 0;
+  height: fit-content;
+  color: var(--text-main);
 }
 
 .exercise-details-card h2 {
@@ -31,23 +34,24 @@
 .add-record input {
   flex: 1;
   padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  border: 2px solid black;
+  border-radius: 0;
   background-color: var(--bg-main);
   color: var(--text-main);
 }
 
 .add-record button {
   padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  background-color: #007bff;
-  color: white;
+  border: 2px solid black;
+  border-radius: 0;
+  background-color: white;
+  color: black;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .add-record button:hover {
-  background-color: #0056b3;
+  background-color: #f0f0f0;
 }
 
 .duration-edit {
@@ -60,32 +64,26 @@
 .duration-edit input {
   width: 100px;
   padding: 4px 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  border: 2px solid black;
+  border-radius: 0;
   background-color: var(--bg-main);
   color: var(--text-main);
 }
 
 .duration-edit button {
   padding: 4px 8px;
-  border: none;
-  border-radius: 4px;
-  background-color: #28a745;
-  color: white;
+  border: 2px solid black;
+  border-radius: 0;
+  background-color: white;
+  color: black;
   cursor: pointer;
   font-size: 0.9em;
+  transition: background-color 0.3s, border-color 0.3s;
 }
 
 .duration-edit button:hover {
-  background-color: #218838;
-}
-
-.duration-edit button:nth-child(3) {
-  background-color: #dc3545;
-}
-
-.duration-edit button:nth-child(3):hover {
-  background-color: #c82333;
+  background-color: #f0f0f0;
+  border-color: #60a5fa;
 }
 
 .edit-duration-btn {
