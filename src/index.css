@@ -3,7 +3,7 @@
    License: none (public domain)
 */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@700&family=Montserrat:wght@700&family=Anton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@700&family=Montserrat:wght@700&family=Anton&family=VT323&display=swap');
 
 @keyframes gradientShift {
   0% { background-position: 0% 50%; }
@@ -85,7 +85,7 @@ table {
   
   --font-primary: 'Inter', sans-serif;
   --font-title: 'Montserrat', sans-serif;
-  --font-timer: 'JetBrains Mono', monospace;
+  --font-timer: 'VT323', monospace;
 }
 
 a {
@@ -107,6 +107,10 @@ body {
   animation: gradientShift 15s ease infinite;
   color: white;
   overflow-x: hidden;
+}
+
+input, textarea, select {
+  font-family: inherit;
 }
 
 #root {
@@ -135,7 +139,7 @@ button:hover {
 }
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: none;
 }
 
 @media (prefers-color-scheme: light) {

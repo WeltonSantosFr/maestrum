@@ -70,7 +70,8 @@ export default function ExerciseTimer({ duration, onStop, onSkip }: ExerciseTime
     return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
   };
 
-  const handlePlayPause = () => {
+  const handlePlayPause = (e: React.MouseEvent) => {
+    e.stopPropagation();
     if (!isRunning) {
       setIsRunning(true);
       setIsPaused(false);
@@ -79,7 +80,8 @@ export default function ExerciseTimer({ duration, onStop, onSkip }: ExerciseTime
     }
   };
 
-  const handleStop = () => {
+  const handleStop = (e: React.MouseEvent) => {
+    e.stopPropagation();
     setIsRunning(false);
     setIsPaused(false);
     setTimeLeft(duration);
@@ -87,7 +89,8 @@ export default function ExerciseTimer({ duration, onStop, onSkip }: ExerciseTime
     onStop();
   };
 
-  const handleSkip = () => {
+  const handleSkip = (e: React.MouseEvent) => {
+    e.stopPropagation();
     setIsRunning(false);
     setIsPaused(false);
     setShowWarning(false);
@@ -98,32 +101,36 @@ export default function ExerciseTimer({ duration, onStop, onSkip }: ExerciseTime
   const activeDots = Math.floor(progress * TOTAL_DOTS);
 
   return (
-    <div className="exercise-timer">
-      <div className={`timer-circle ${showWarning ? 'warning' : ''}`}>
-        <div className="timer-display">{formatTime(timeLeft)}</div>
-        {Array.from({ length: TOTAL_DOTS }, (_, index) => (
-          <div
-            key={index}
-            className={`timer-dot ${index < activeDots ? 'active' : ''}`}
-            style={{
-              transform: `rotate(${index * (360 / TOTAL_DOTS)}deg) translateY(-80px)`,
-            }}
-          />
-        ))}
-      </div>
-      {showWarning && (
-        <div className="warning-popup">
-          <p>Time's up! Exercise completed.</p>
-          <button onClick={() => setShowWarning(false)}>Close</button>
+  <div className="device-container">
+    <div className="device-body">
+      {/* Tela LCD */}
+      <div className="lcd-screen">
+        <div className="pixel-grid-overlay"></div>
+        <div className="timer-display-retro">
+          {formatTime(timeLeft)}
         </div>
-      )}
-      <div className="timer-controls">
-        <button onClick={handlePlayPause}>
-          {isRunning && !isPaused ? 'Pause' : 'Play'}
+      </div>
+
+      {/* Controles Estilizados */}
+      <div className="controls-row">
+        <button className="btn-round" onClick={handlePlayPause}>
+          <span className={isRunning && !isPaused ? "pause-icon" : "play-icon"}></span>
         </button>
-        <button onClick={handleStop}>Stop</button>
-        <button onClick={handleSkip}>Skip</button>
+        <button className="btn-round" onClick={handleStop}>
+          <div className="stop-square"></div>
+        </button>
+        <button className="btn-pill" onClick={handleSkip}>
+          SKIP
+        </button>
       </div>
     </div>
-  );
+
+    {showWarning && (
+      <div className="warning-popup">
+        <p>Time's up!</p>
+        <button onClick={() => setShowWarning(false)}>Close</button>
+      </div>
+    )}
+  </div>
+);
 }

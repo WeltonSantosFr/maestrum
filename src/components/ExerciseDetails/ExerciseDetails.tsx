@@ -1,13 +1,6 @@
 import { useState } from 'react';
 import './ExerciseDetails.css';
-
-interface Exercise {
-  id: number;
-  nome: string;
-  duracao: number;
-  bpmRecorde: number;
-  historico: { data: string; bpm: number }[];
-}
+import type { Exercise } from '../../types';
 
 interface ExerciseDetailsProps {
   exercise: Exercise | null;
@@ -30,7 +23,7 @@ export default function ExerciseDetails({ exercise, onAddRecord, onUpdateDuratio
 
   const handleEditDuration = () => {
     setIsEditingDuration(true);
-    setEditDuration(formatTimeForInput(exercise?.duracao || 0));
+    setEditDuration(formatTimeForInput(exercise?.durationMinutes || 0));
   };
 
   const handleSaveDuration = () => {
@@ -82,7 +75,7 @@ export default function ExerciseDetails({ exercise, onAddRecord, onUpdateDuratio
     <div className="exercise-details-card">
       <h2>Detalhes do Exercício</h2>
       <div className="detail-item">
-        <strong>Nome:</strong> {exercise.nome}
+        <strong>Nome:</strong> {exercise.name}
       </div>
       <div className="detail-item">
         <strong>Duração:</strong> 
@@ -101,13 +94,13 @@ export default function ExerciseDetails({ exercise, onAddRecord, onUpdateDuratio
           </div>
         ) : (
           <span>
-            {formatTime(exercise.duracao)}
+            {formatTime(exercise.durationMinutes)}
             <button onClick={handleEditDuration} className="edit-duration-btn">Editar</button>
           </span>
         )}
       </div>
       <div className="detail-item">
-        <strong>Último BPM Record:</strong> {exercise.bpmRecorde}
+        <strong>Último BPM Record:</strong> {exercise.currentBpmRecord}
       </div>
       <div className="add-record">
         <input

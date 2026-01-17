@@ -22,10 +22,11 @@
 }
 
 .timer-display {
-  font-size: 2em;
+  font-size: 5em;
   font-weight: bold;
   color: var(--text-main);
   z-index: 1;
+  font-family: var(--font-timer);
   position: relative;
 }
 
@@ -101,4 +102,124 @@
 
 .warning-popup button:hover {
   background-color: #f0f0f0;
+}
+
+.device-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Corpo do Gameboy / Timer */
+.device-body {
+  background-color: #4DD0E1; /* Cor ciano da imagem */
+  width: 240px;
+  padding: 20px;
+  border-radius: 25px;
+  box-shadow: 
+    inset -10px -10px 20px rgba(0,0,0,0.25),
+    inset 10px 10px 20px rgba(255,255,255,0.5),
+    15px 15px 35px rgba(0,0,0,0.15),
+    -1px -1px 2px rgba(255,255,255,0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Moldura e Tela LCD */
+.lcd-screen {
+  background-color: #9dac9a; /* Tom de verde de tela de gameboy antigo */
+  width: auto;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border-top: 5px solid #333;
+  border-left: 5px solid #333;
+  border-right: 5px solid #666;
+  border-bottom: 5px solid #666;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  box-shadow: inset 3px 3px 5px rgba(0,0,0,0.4),
+              inset -3px -3px 5px rgba(255,255,255,0.2);
+}
+
+/* Efeito de grade de pixels */
+.pixel-grid-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px);
+  background-size: 4px 4px;
+  pointer-events: none;
+}
+
+.timer-display-retro {
+  font-family: 'VT323', monospace;
+  font-size: 4rem;
+  color: #333;
+  text-shadow: 1px 1px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Botões Neomórficos */
+.controls-row {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.btn-round {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background: #4DD0E1;
+  box-shadow: 4px 4px 8px rgba(0,0,0,0.2),
+              -4px -4px 8px rgba(255,255,255,0.5);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-round:active {
+  box-shadow: inset 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+.btn-pill {
+  height: 35px;
+  padding: 0 20px;
+  border-radius: 20px;
+  border: none;
+  background: #4DD0E1;
+  font-weight: bold;
+  color: rgba(0,0,0,0.5);
+  box-shadow: 4px 4px 8px rgba(0,0,0,0.2),
+              -4px -4px 8px rgba(255,255,255,0.5);
+}
+
+/* Ícones simples com CSS */
+.stop-square {
+  width: 15px;
+  height: 15px;
+  background: #333;
+}
+
+.play-icon {
+  width: 0; height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 12px solid #333;
+}
+
+.pause-icon {
+    width: 5px;
+    height: 15px;
+    background: #333;
+    position: relative;
+    left: -3px;
+    box-shadow: 8px 0 0 #333;
 }

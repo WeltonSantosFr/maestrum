@@ -2,14 +2,7 @@ import { useState } from 'react';
 import { MdClose } from 'react-icons/md';
 import ExerciseTimer from '../ExerciseTimer/ExerciseTimer';
 import './ExerciseList.css';
-
-interface Exercise {
-  id: number;
-  nome: string;
-  duracao: number;
-  bpmRecorde: number;
-  historico: { data: string; bpm: number }[];
-}
+import type { Exercise } from '../../types';
 
 function formatTime(seconds: number): string {
   const minutes = Math.floor(seconds / 60);
@@ -49,8 +42,8 @@ export default function ExerciseList({ selectedExercise, onSelectExercise, exerc
   };
 
   const handleSkip = () => {
-    if (selectedExercise !== null) {
-      const nextIndex = (selectedExercise + 1) % exercises.length;
+    if (selectedExercise !== null && selectedExercise < exercises.length - 1) {
+      const nextIndex = selectedExercise + 1;
       onSelectExercise(nextIndex);
     }
   };
@@ -98,28 +91,30 @@ export default function ExerciseList({ selectedExercise, onSelectExercise, exerc
             className={`exercise-item ${selectedExercise === index ? 'selected' : ''}`}
             onClick={() => handleExerciseClick(index)}
           >
-            <div className="exercise-info">
-              <span className="exercise-name">{exercise.nome}</span>
-              <span className="exercise-time">{formatTime(exercise.duracao)}</span>
+            <div className="exercise-item-content">
+              <div className="exercise-info">
+                <span className="exercise-name">{exercise.name}</span>
+                <span className="exercise-time">{formatTime(exercise.durationMinutes)}</span>
+              </div>
+              <button 
+                onClick={(e) => handleDeleteClick(e, index)} 
+                className="delete-exercise-btn"
+                title="Excluir exercício"
+              >
+                <MdClose />
+              </button>
             </div>
-            <button 
-              onClick={(e) => handleDeleteClick(e, index)} 
-              className="delete-exercise-btn"
-              title="Excluir exercício"
-            >
-              <MdClose />
-            </button>
+            {selectedExercise === index && (
+              <ExerciseTimer
+                key={selectedExercise}
+                duration={exercises[selectedExercise].durationMinutes}
+                onStop={handleStop}
+                onSkip={handleSkip}
+              />
+            )}
           </div>
         ))}
       </div>
-      {selectedExercise !== null && (
-        <ExerciseTimer
-          key={selectedExercise}
-          duration={exercises[selectedExercise].duracao}
-          onStop={handleStop}
-          onSkip={handleSkip}
-        />
-      )}
 
       {showAddModal && (
         <div className="modal-overlay">
