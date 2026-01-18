@@ -1,0 +1,103 @@
+.exercise-card {
+    transition: all 0.3s;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 1rem;
+    border-radius: 1.25rem; /* rounded-[20px] */
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+
+.exercise-card:hover {
+    background-color: white;
+    border-color: #e2e8f0; /* border-slate-200 */
+}
+
+.exercise-card.active {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 2.5rem; /* rounded-[40px] */
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); /* shadow-md */
+    border: 2px solid rgba(6, 182, 212, 0.3);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.card-icon {
+    font-size: 1.5rem; /* text-2xl */
+}
+
+.card-title {
+    font-weight: 700; /* font-bold */
+    color: #475569; /* text-slate-600 */
+    transition: all 0.3s;
+}
+
+.exercise-card.active .card-title {
+    color: #06B6D4;
+}
+
+.card-desc {
+    font-size: 0.625rem; /* text-[10px] */
+    color: #94a3b8; /* text-slate-400 */
+    font-weight: 700;
+    text-transform: uppercase;
+    font-style: italic;
+}
+
+.card-actions {
+    display: flex;
+    gap: 0.5rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.exercise-card:hover .card-actions,
+.exercise-card.active .card-actions {
+    opacity: 1;
+}
+
+.card-action-btn {
+    padding: 0.5rem;
+    border-radius: 9999px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: #94a3b8; /* text-slate-400 */
+    transition: all 0.2s;
+}
+
+.card-action-btn:hover {
+    background-color: #f1f5f9; /* hover:bg-slate-100 */
+    color: #06B6D4; /* hover:text-[#06B6D4] */
+}
+
+.card-action-btn.delete:hover {
+    background-color: #fee2e2; /* hover:bg-red-50 */
+    color: #ef4444; /* hover:text-red-500 */
+}
+
+.card-timer-container {
+    transition: all 0.5s;
+    max-height: 0;
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.exercise-card.active .card-timer-container {
+    max-height: 400px; /* or enough to show content */
+    opacity: 1;
+    margin-top: 1.5rem;
+}

@@ -1,129 +1,133 @@
 /* LandingPage.css */
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: #374151; /* text-slate-800 */
 }
 
 .landing-container {
-  display: flex;
-  flex-direction: column;
   min-height: 100vh;
-  background: linear-gradient(-45deg, #1e3a8a, #3b82f6, #60a5fa, #93c5fd);
-  background-size: 400% 400%;
-  animation: gradientShift 15s ease infinite;
-  color: white;
-  font-family: 'Anton', sans-serif;
-  text-align: center;
-  padding: 0 20px;
-  overflow: hidden;
+  padding: 1rem;
+  background-color: #f1f5f9; /* bg-slate-100 */
 }
 
-.landing-header {
-  padding: 60px 0 40px;
+@media (min-width: 768px) {
+  .landing-container {
+      padding: 2rem;
+  }
 }
 
-.landing-title {
-  font-size: 4rem;
-  font-weight: bold;
-  margin: 0;
-  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-  background: linear-gradient(45deg, #fff, #3b82f6);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.landing-subtitle {
-  font-size: 1.5rem;
-  margin: 10px 0 0;
-  opacity: 0.9;
-  font-weight: 300;
-}
-
-.landing-main {
-  flex: 1;
+.dashboard-header {
+  max-width: 96rem;
+  margin: 0 auto 2rem auto;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
+  justify-content: space-between;
 }
 
-.landing-description {
-  font-size: 1.2rem;
-  line-height: 1.8;
-  margin-bottom: 50px;
-  opacity: 0.9;
-  font-weight: 400;
+.header-title h1 {
+  font-size: 1.875rem;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -0.05em;
+  color: #06B6D4;
 }
 
-.cta-buttons {
+.header-title h1 span {
+  color: #d1d5db;
+}
+
+.header-title p {
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: #94a3b8;
+}
+
+.header-actions {
   display: flex;
-  gap: 30px;
-  flex-wrap: wrap;
-  justify-content: center;
+  gap: 1rem;
 }
 
 .btn {
   display: inline-block;
-  padding: 15px 30px;
-  font-size: 1.1rem;
-  font-weight: bold;
+  padding: 0.5625rem 1.25rem; /* ~30px height */
+  font-size: 0.75rem;
+  font-weight: 700;
   text-decoration: none;
-  border-radius: 0;
-  background: white;
-  color: black;
-  border: 2px solid black;
+  border-radius: 1rem;
+  transition: all 0.2s;
+  text-align: center;
 }
 
-
-
 .btn-primary {
-  background: white;
-  color: black;
-  border: 2px solid black;
+  background-color: #06B6D4;
+  color: white;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
 
 .btn-primary:hover {
-  background: #f0f0f0;
+  background-color: #0891B2;
+  color: white;
 }
 
 .btn-secondary {
-  background: white;
-  color: black;
-  border: 2px solid black;
+  background-color: #e2e8f0; /* bg-slate-200 */
+  color: #334155; /* text-slate-700 */
+  border: none;
 }
 
 .btn-secondary:hover {
-  background: #f0f0f0;
+  background-color: #cbd5e1; /* bg-slate-300 */
+  color: #334155; /* text-slate-700 */
+}
+
+.landing-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 4rem 1rem;
+}
+
+.landing-content {
+  max-width: 600px;
+}
+
+.landing-headline {
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin-bottom: 1.5rem;
+}
+
+.landing-description {
+  font-size: 1.125rem;
+  line-height: 1.75;
+  color: #4b5563; /* text-slate-600 */
+  margin-bottom: 2.5rem;
+}
+
+.cta-button {
+  padding: 0.625rem 2rem; /* ~36px height */
+  font-size: 0.875rem;
 }
 
 .landing-footer {
-  padding: 20px 0;
-  font-size: 0.9rem;
-  opacity: 0.7;
+  text-align: center;
+  padding: 2rem 0;
+  font-size: 0.875rem;
+  color: #94a3b8;
 }
 
 /* Responsividade */
 @media (max-width: 768px) {
-  .landing-title {
-    font-size: 3rem;
+  .header-actions {
+    display: none; /* Hide in header, shown in main content */
   }
-  .landing-subtitle {
-    font-size: 1.2rem;
-  }
-  .landing-description {
-    font-size: 1rem;
-  }
-  .cta-buttons {
-    flex-direction: column;
-    gap: 20px;
-  }
-  .btn {
-    padding: 12px 24px;
-    font-size: 1rem;
+
+  .landing-headline {
+    font-size: 2rem;
   }
 }

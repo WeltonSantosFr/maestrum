@@ -5,11 +5,6 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@700&family=Montserrat:wght@700&family=Anton&family=VT323&display=swap');
 
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -102,7 +97,7 @@ body {
   display: flex;
   min-width: 100vw;
   min-height: 100vh;
-  background: linear-gradient(-45deg, #1e3a8a, #3b82f6, #60a5fa, #93c5fd);
+  background: #f1f5f9;
   background-size: 400% 400%;
   animation: gradientShift 15s ease infinite;
   color: white;

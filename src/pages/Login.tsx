@@ -5,7 +5,6 @@ import * as yup from 'yup';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import './Login.css';
-import type { AxiosError } from 'axios';
 
 const schema = yup.object({
   email: yup.string().email('Email inválido').required('Email é obrigatório'),
@@ -29,7 +28,6 @@ const Login: React.FC = () => {
       const { access_token, user } = response.data;
       localStorage.setItem('token', access_token);
       localStorage.setItem('userId', user.id);
-      // eslint-disable-next-line react-hooks/immutability
       api.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
       navigate('/dashboard');
     } catch (error: any) {
@@ -39,17 +37,18 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="login-container">
-      <div className="login-card">
-        <h1 className="login-title">Login</h1>
-        <form onSubmit={handleSubmit(onSubmit)} className="login-form">
+    <div className="login-page-container">
+      <div className="login-modal-content">
+        <h2>Acesse sua conta</h2>
+        <form onSubmit={handleSubmit(onSubmit)} className="modal-form">
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input
               type="email"
               id="email"
               {...register('email')}
-              className="login-input"
+              placeholder="seu@email.com"
+              autoFocus
             />
             {errors.email && <span className="error-message">{errors.email.message}</span>}
           </div>
@@ -59,15 +58,17 @@ const Login: React.FC = () => {
               type="password"
               id="password"
               {...register('password')}
-              className="login-input"
+              placeholder="Sua senha"
             />
             {errors.password && <span className="error-message">{errors.password.message}</span>}
           </div>
-          <button type="submit" className="login-btn">Entrar</button>
-          {errors.root && <span className="error-message">{errors.root.message}</span>}
+          {errors.root && <span className="error-message root-error">{errors.root.message}</span>}
+          <div className="modal-actions">
+            <button type="submit" className="login-btn">Entrar</button>
+          </div>
         </form>
-        <p className="login-link">
-          Não tem conta? <Link to="/register">Registrar</Link>
+        <p className="register-link">
+          Não tem uma conta? <Link to="/register">Cadastre-se</Link>
         </p>
       </div>
     </div>

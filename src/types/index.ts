@@ -5,3 +5,15 @@ export interface Exercise {
   currentBpmRecord: number;
   history: { id: string; bpm: number; date: string; exerciseId: string }[];
 }
+
+export interface User {
+  id: string;
+  username: string;
+  email: string;
+}
+
+export interface CreateUser {
+  username: string;
+  email: string;
+  password: string;
+}

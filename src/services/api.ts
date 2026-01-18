@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { Exercise } from '../types';
+import type { CreateUser, Exercise } from '../types';
 
 const api = axios.create({
   baseURL: 'https://guitaa-api.onrender.com',
@@ -17,5 +17,6 @@ export const getExercises = (userId: string) => api.get('/exercises', { params: 
 export const addExercise = (exerciseData: Partial<Exercise>) => api.post('/exercises', exerciseData);
 export const deleteExercise = (exerciseId: string) => api.delete(`/exercises/${exerciseId}`);
 export const updateExercise = (exerciseId: string, exerciseData: Partial<Exercise>) => api.patch(`/exercises/${exerciseId}`, exerciseData);
+export const registerUser = (userData: CreateUser) => api.post('/users', userData);
 
 export default api;
