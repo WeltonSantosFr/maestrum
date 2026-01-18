@@ -7,8 +7,6 @@ interface ExerciseTimerProps {
   onSkip: () => void;
 }
 
-const TOTAL_DOTS = 20;
-
 export default function ExerciseTimer({ duration, onStop, onSkip }: ExerciseTimerProps) {
   const [timeLeft, setTimeLeft] = useState(duration);
   const [isRunning, setIsRunning] = useState(false);
