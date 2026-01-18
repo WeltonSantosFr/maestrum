@@ -3,6 +3,7 @@ export interface Exercise {
   name: string;
   durationMinutes: number;
   currentBpmRecord: number;
+  bpmGoal: number;
   history: { id: string; bpm: number; date: string; exerciseId: string }[];
 }
 

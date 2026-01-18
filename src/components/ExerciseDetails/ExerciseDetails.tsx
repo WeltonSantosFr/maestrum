@@ -17,8 +17,8 @@ export default function ExerciseDetails({ exercise }: ExerciseDetailsProps) {
     );
   }
 
-  const { name, desc, currentBpmRecord, icon = '🎸' } = exercise;
-  const targetBpm = Math.round(currentBpmRecord * 1.1);
+  const { name, desc, currentBpmRecord, bpmGoal, icon = '🎸' } = exercise;
+  const targetBpm = bpmGoal
 
   return (
     <div className="details-container">

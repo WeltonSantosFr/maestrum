@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import type { Exercise } from '../../types';
 import './ExerciseModal.css';
+import { createHistoryRecord } from '../../services/api';
 
 interface ExerciseModalProps {
   exercise: (Exercise & { desc?: string }) | null;
   onClose: () => void;
-  onSave: (data: any) => void;
+  onSave: (data: any) => Promise<Exercise>;
 }
 
 const formatTime = (totalSeconds: number): string => {
@@ -27,7 +28,8 @@ export default function ExerciseModal({ exercise, onClose, onSave }: ExerciseMod
     name: '',
     desc: '',
     duration: '02:00',
-    currentBpmRecord: 60 as number | string
+    currentBpmRecord: 60 as number | string,
+    bpmGoal: 60 as number | string
   });
   
   const [isFormValid, setIsFormValid] = useState(false);
@@ -39,13 +41,16 @@ export default function ExerciseModal({ exercise, onClose, onSave }: ExerciseMod
         desc: exercise.desc || '',
         duration: formatTime(exercise.durationMinutes),
         currentBpmRecord: exercise.currentBpmRecord || 60,
+        bpmGoal: exercise.bpmGoal || 60
       });
+
     } else {
       setFormData({
         name: '',
         desc: '',
         duration: '01:00',
         currentBpmRecord: 60,
+        bpmGoal: 60
       });
     }
   }, [exercise]);
@@ -61,7 +66,6 @@ export default function ExerciseModal({ exercise, onClose, onSave }: ExerciseMod
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    // Allow empty string for number inputs for better UX
     if (name === 'currentBpmRecord' && value === '') {
         setFormData(prev => ({...prev, currentBpmRecord: ''}));
         return;
@@ -79,7 +83,7 @@ export default function ExerciseModal({ exercise, onClose, onSave }: ExerciseMod
     setFormData(prev => ({ ...prev, duration: formatted }));
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!isFormValid) {
         alert('Por favor, preencha todos os campos obrigatórios (Título, Duração e BPM).');
         return;
@@ -90,8 +94,35 @@ export default function ExerciseModal({ exercise, onClose, onSave }: ExerciseMod
         desc: formData.desc,
         durationMinutes: parseTime(formData.duration),
         currentBpmRecord: Number(formData.currentBpmRecord),
+        bpmGoal: Number(formData.bpmGoal)
     };
-    onSave(dataToSave);
+
+    try {
+      const savedExercise = await onSave(dataToSave);
+
+      const newBpmRecord = Number(formData.currentBpmRecord);
+      const isNewExercise = !exercise;
+
+      const oldBpmRecord = exercise ? Number(exercise.bpmGoal) : null;
+      const bpmChanged = exercise !== null && newBpmRecord !== oldBpmRecord;
+      
+      console.log('Debug BPM:', { 
+        novo: newBpmRecord, 
+        antigo: oldBpmRecord, 
+        mudou: bpmChanged, 
+        isNew: isNewExercise 
+      });
+
+      if (isNewExercise || bpmChanged) {
+        const id = exercise?.id || savedExercise.id;
+
+        if(id) {
+          await createHistoryRecord(id, newBpmRecord);
+        }
+      }
+    } catch (error) {
+      console.error('Erro ao salvar exercício ou criar registro de histórico:', error);
+    }
   };
 
   return (
@@ -124,11 +155,21 @@ export default function ExerciseModal({ exercise, onClose, onSave }: ExerciseMod
           </div>
           <div className="form-grid">
             <div className="form-group">
-                <label>BPM Inicial</label>
+                <label>BPM Inicial/Atual</label>
                 <input 
                     type="number"
                     name="currentBpmRecord"
                     value={formData.currentBpmRecord} 
+                    onChange={handleChange}
+                    required
+                />
+            </div>
+            <div className="form-group">
+                <label>BPM Meta</label>
+                <input 
+                    type="number"
+                    name="bpmGoal"
+                    value={formData.bpmGoal} 
                     onChange={handleChange}
                     required
                 />

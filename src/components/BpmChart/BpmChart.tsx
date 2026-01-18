@@ -8,7 +8,6 @@ interface BpmChartProps {
 }
 
 export default function BpmChart({ exercise }: BpmChartProps) {
-
   const chartData = useMemo(() => {
     if (!exercise || !exercise.history || exercise.history.length === 0) {
       return [];
@@ -17,7 +16,6 @@ export default function BpmChart({ exercise }: BpmChartProps) {
   }, [exercise]);
 
   if (!exercise) {
-    // Return a placeholder or null if no exercise is selected
     return (
         <div className="chart-card">
             <h3 className="chart-title">Evolução de Velocidade</h3>

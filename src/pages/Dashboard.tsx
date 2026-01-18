@@ -1,32 +1,46 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import './Dashboard.css';
-import ExerciseCard from '../components/ExerciseCard/ExerciseCard';
-import ExerciseDetails from '../components/ExerciseDetails/ExerciseDetails';
-import BpmChart from '../components/BpmChart/BpmChart';
-import ExerciseModal from '../components/ExerciseModal/ExerciseModal';
-import DeleteConfirmationModal from '../components/DeleteConfirmationModal/DeleteConfirmationModal';
-import { getExercises, addExercise, updateExercise, deleteExercise } from '../services/api';
-import type { Exercise } from '../types';
+import React, { useState, useEffect, useMemo } from "react";
+import "./Dashboard.css";
+import ExerciseCard from "../components/ExerciseCard/ExerciseCard";
+import ExerciseDetails from "../components/ExerciseDetails/ExerciseDetails";
+import BpmChart from "../components/BpmChart/BpmChart";
+import ExerciseModal from "../components/ExerciseModal/ExerciseModal";
+import DeleteConfirmationModal from "../components/DeleteConfirmationModal/DeleteConfirmationModal";
+import {
+  getExercises,
+  addExercise,
+  updateExercise,
+  deleteExercise,
+} from "../services/api";
+import type { Exercise } from "../types";
 
 const Dashboard: React.FC = () => {
-  const [selectedExercise, setSelectedExercise] = useState<number | null>(0);
+  const [selectedExerciseId, setSelectedExerciseId] = useState<string | null>(null);
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingExercise, setEditingExercise] = useState<Exercise | null>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [exerciseToDeleteId, setExerciseToDeleteId] = useState<string | null>(null);
+  const [exerciseToDeleteId, setExerciseToDeleteId] = useState<string | null>(
+    null,
+  );
+
+  const loadExercises = async () => {
+    const userId = localStorage.getItem("userId");
+    if (!userId) throw new Error("User ID not found");
+    const response = await getExercises(userId);
+    setExercises(response.data);
+  };
 
   useEffect(() => {
     const fetchExercises = async () => {
       try {
-        const userId = localStorage.getItem('userId');
-        if(!userId) throw new Error('User ID not found');
+        const userId = localStorage.getItem("userId");
+        if (!userId) throw new Error("User ID not found");
         const response = await getExercises(userId);
         setExercises(response.data);
       } catch {
-        setError('Failed to fetch exercises');
+        setError("Failed to fetch exercises");
       } finally {
         setLoading(false);
       }
@@ -34,34 +48,56 @@ const Dashboard: React.FC = () => {
     fetchExercises();
   }, []);
 
-  const selectedEx = useMemo(() =>
-    (selectedExercise !== null && exercises.length > 0) ? exercises[selectedExercise] : null,
-    [selectedExercise, exercises]
-  );
-  
-  const handleSaveExercise = async (data: Omit<Exercise, 'id' | 'history'> & { id?: string, desc?: string }) => {
-    const { desc, ...exerciseData } = data; // Omit 'desc' from the data sent to API
+  const selectedEx = useMemo(() => {
+    if(!selectedExerciseId || exercises.length === 0) return exercises[0] || null;
+    return exercises.find(ex => ex.id == selectedExerciseId) || exercises[0]
+  }, [selectedExerciseId, exercises]);
 
-    if (editingExercise) { // Update
+  const handleSaveExercise = async (
+    data: Omit<Exercise, "id" | "history"> & { id?: string; desc?: string },
+  ) => {
+    const { desc, ...exerciseData } = data;
+
+    if (editingExercise) {
       const originalExercises = exercises;
-      setExercises(prev => prev.map(ex => ex.id === editingExercise.id ? { ...ex, ...data } : ex));
+      setExercises((prev) =>
+        prev.map((ex) =>
+          ex.id === editingExercise.id ? { ...ex, ...data } : ex,
+        ),
+      );
       try {
-        await updateExercise(editingExercise.id, exerciseData);
+        const response = await updateExercise(editingExercise.id, exerciseData);
+        setIsModalOpen(false);
+        setEditingExercise(null);
+
+        setTimeout(() => {
+          loadExercises();
+        }, 500);
+
+        return response.data;
       } catch (err) {
         console.error(err);
-        setError('Failed to update exercise');
+        setError("Failed to update exercise");
         setExercises(originalExercises);
       }
-    } else { // Create
+    } else {
       try {
-        // Pass exerciseData directly, which does not contain 'history'
         const response = await addExercise(exerciseData);
-        setExercises(prev => [...prev, response.data]);
+        setExercises((prev) => [...prev, response.data]);
+
+        setIsModalOpen(false);
+        setEditingExercise(null);
+
+        setTimeout(() => {
+          loadExercises();
+        }, 500);
+        return response.data;
       } catch (err) {
         console.error(err);
-        setError('Failed to add exercise');
+        setError("Failed to add exercise");
       }
     }
+
     setIsModalOpen(false);
     setEditingExercise(null);
   };
@@ -71,27 +107,28 @@ const Dashboard: React.FC = () => {
     setIsDeleteModalOpen(true);
   };
 
-
   const confirmDelete = async () => {
     if (exerciseToDeleteId === null) return;
 
     const originalExercises = exercises;
-    const deletedIndex = originalExercises.findIndex(ex => ex.id === exerciseToDeleteId);
-    setExercises(prev => prev.filter(ex => ex.id !== exerciseToDeleteId));
+    const deletedIndex = originalExercises.findIndex(
+      (ex) => ex.id === exerciseToDeleteId,
+    );
+    setExercises((prev) => prev.filter((ex) => ex.id !== exerciseToDeleteId));
 
     try {
       await deleteExercise(exerciseToDeleteId);
-      if (selectedExercise === deletedIndex) {
-        setSelectedExercise(exercises.length > 1 ? 0 : null);
-      } else if (selectedExercise !== null && selectedExercise > deletedIndex) {
-        setSelectedExercise(selectedExercise - 1);
+      if (selectedExerciseId === exerciseToDeleteId) {
+        setSelectedExerciseId(exercises.length > 1 ? exercises[0].id : null);
+      } else if (selectedExerciseId !== null && selectedExerciseId > exerciseToDeleteId) {
+        setSelectedExerciseId(selectedExerciseId);
       }
     } catch (error) {
-      setError('Failed to delete exercise');
+      setError("Failed to delete exercise");
       setExercises(originalExercises);
     } finally {
-        setIsDeleteModalOpen(false);
-        setExerciseToDeleteId(null);
+      setIsDeleteModalOpen(false);
+      setExerciseToDeleteId(null);
     }
   };
 
@@ -107,17 +144,22 @@ const Dashboard: React.FC = () => {
   };
 
   if (loading) return <div>Loading...</div>;
-  if (error) return <div style={{color: 'red'}}>{error}</div>;
+  if (error) return <div style={{ color: "red" }}>{error}</div>;
 
   return (
     <div className="dashboard-container">
       <header className="dashboard-header">
         <div className="header-title">
-          <h1>MUSIC <span>STUDIO</span></h1>
+          <h1>
+            MUSIC <span>STUDIO</span>
+          </h1>
           <p>Gerenciador de Prática</p>
         </div>
-        <button 
-          onClick={() => { setEditingExercise(null); setIsModalOpen(true); }}
+        <button
+          onClick={() => {
+            setEditingExercise(null);
+            setIsModalOpen(true);
+          }}
           className="new-exercise-btn"
         >
           <span>+ NOVO EXERCÍCIO</span>
@@ -128,15 +170,15 @@ const Dashboard: React.FC = () => {
         <section className="left-panel-dash">
           <div className="left-panel-inner custom-scrollbar">
             <div className="playlist-header">
-                <h2 className="playlist-title">Sua Playlist</h2>
-                <span className="playlist-count">{exercises.length} itens</span>
+              <h2 className="playlist-title">Sua Playlist</h2>
+              <span className="playlist-count">{exercises.length} itens</span>
             </div>
             {exercises.map((ex, index) => (
               <ExerciseCard
                 key={ex.id}
                 exercise={ex}
-                isActive={selectedExercise === index}
-                onClick={() => setSelectedExercise(index)}
+                isActive={selectedExerciseId === ex.id}
+                onClick={() => setSelectedExerciseId(ex.id)}
                 onDelete={() => handleDeleteExercise(ex.id)}
                 onEdit={(e) => openEdit(ex, e)}
               />
@@ -151,10 +193,10 @@ const Dashboard: React.FC = () => {
       </main>
 
       {isModalOpen && (
-        <ExerciseModal 
-            exercise={editingExercise}
-            onClose={() => setIsModalOpen(false)}
-            onSave={handleSaveExercise}
+        <ExerciseModal
+          exercise={editingExercise}
+          onClose={() => setIsModalOpen(false)}
+          onSave={handleSaveExercise}
         />
       )}
 

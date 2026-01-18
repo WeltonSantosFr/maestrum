@@ -22,7 +22,7 @@ import type { Exercise } from '../../types';
 
 export default function ExerciseHistory({ exercise }: { exercise: Exercise | null }) {
   const [showModal, setShowModal] = useState(false);
-
+  console.log('ExerciseHistory exercise:', exercise);
   if (exercise == null) {
     return (
       <div className="exercise-history-card">

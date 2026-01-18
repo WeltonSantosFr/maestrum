@@ -18,5 +18,6 @@ export const addExercise = (exerciseData: Partial<Exercise>) => api.post('/exerc
 export const deleteExercise = (exerciseId: string) => api.delete(`/exercises/${exerciseId}`);
 export const updateExercise = (exerciseId: string, exerciseData: Partial<Exercise>) => api.patch(`/exercises/${exerciseId}`, exerciseData);
 export const registerUser = (userData: CreateUser) => api.post('/users', userData);
+export const createHistoryRecord = (exerciseId: string, bpm: number) => api.post(`/history`, {exerciseId, bpm });
 
 export default api;
