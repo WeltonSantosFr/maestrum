@@ -97,8 +97,6 @@ export default function ExerciseTimer({ duration, onStop, onSkip }: ExerciseTime
     onSkip();
   };
 
-  const progress = (duration - timeLeft) / duration;
-  const activeDots = Math.floor(progress * TOTAL_DOTS);
 
   return (
   <div className="device-container">
