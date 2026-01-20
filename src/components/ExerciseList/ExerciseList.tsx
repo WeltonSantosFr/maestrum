@@ -3,6 +3,7 @@ import { MdClose } from 'react-icons/md';
 import ExerciseTimer from '../ExerciseTimer/ExerciseTimer';
 import './ExerciseList.css';
 import type { Exercise } from '../../types';
+import { AiOutlineLoading } from 'react-icons/ai';
 
 function formatTime(seconds: number): string {
   const minutes = Math.floor(seconds / 60);
@@ -29,6 +30,7 @@ interface ExerciseListProps {
 }
 
 export default function ExerciseList({ selectedExercise, onSelectExercise, exercises, onAddExercise, onDeleteExercise }: ExerciseListProps) {
+  const [loading, setLoading] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
   const [newExerciseName, setNewExerciseName] = useState('');
   const [newExerciseDuration, setNewExerciseDuration] = useState('');
@@ -58,6 +60,7 @@ export default function ExerciseList({ selectedExercise, onSelectExercise, exerc
   };
 
   const handleSaveNewExercise = () => {
+    setLoading(true);
     const name = newExerciseName.trim();
     const duration = parseTimeToSeconds(newExerciseDuration);
     const bpm = parseInt(newExerciseBpm);
@@ -157,7 +160,7 @@ export default function ExerciseList({ selectedExercise, onSelectExercise, exerc
             </div>
             <div className="modal-actions">
               <button onClick={handleCancelAdd} className="cancel-btn">Cancelar</button>
-              <button onClick={handleSaveNewExercise} className="save-btn">Salvar</button>
+              <button onClick={handleSaveNewExercise} className="save-btn" disabled={loading}>{loading ? <AiOutlineLoading className='loading-icon' /> : 'Salvar'}</button>
             </div>
           </div>
         </div>

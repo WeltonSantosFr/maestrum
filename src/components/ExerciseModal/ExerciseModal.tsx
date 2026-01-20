@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import type { Exercise } from '../../types';
 import './ExerciseModal.css';
 import { createHistoryRecord } from '../../services/api';
+import { AiOutlineLoading } from 'react-icons/ai';
 
 interface ExerciseModalProps {
   exercise: (Exercise & { desc?: string }) | null;
@@ -24,6 +25,7 @@ const parseTime = (timeString: string): number => {
 }
 
 export default function ExerciseModal({ exercise, onClose, onSave }: ExerciseModalProps) {
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     desc: '',
@@ -84,8 +86,10 @@ export default function ExerciseModal({ exercise, onClose, onSave }: ExerciseMod
   };
 
   const handleSave = async () => {
+    setLoading(true);
     if (!isFormValid) {
         alert('Por favor, preencha todos os campos obrigatórios (Título, Duração e BPM).');
+        setLoading(false);
         return;
     }
     
@@ -120,8 +124,10 @@ export default function ExerciseModal({ exercise, onClose, onSave }: ExerciseMod
           await createHistoryRecord(id, newBpmRecord);
         }
       }
+      setLoading(false);
     } catch (error) {
       console.error('Erro ao salvar exercício ou criar registro de histórico:', error);
+      setLoading(false);
     }
   };
 
@@ -191,7 +197,7 @@ export default function ExerciseModal({ exercise, onClose, onSave }: ExerciseMod
 
         <div className="modal-actions">
           <button onClick={onClose} className="cancel-btn">Cancelar</button>
-          <button onClick={handleSave} disabled={!isFormValid}>Salvar</button>
+          <button onClick={handleSave} disabled={!isFormValid || loading}>{loading ? <AiOutlineLoading className='loading-icon' /> : 'Salvar'}</button>
         </div>
       </div>
     </div>

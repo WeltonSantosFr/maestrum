@@ -1,10 +1,11 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useState } from 'react';
+import { set, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import './Login.css';
+import { AiOutlineLoading } from 'react-icons/ai';
 
 const schema = yup.object({
   email: yup.string().email('Email inválido').required('Email é obrigatório'),
@@ -17,6 +18,7 @@ interface LoginForm {
 }
 
 const Login: React.FC = () => {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors }, setError } = useForm<LoginForm>({
     resolver: yupResolver(schema),
@@ -24,13 +26,16 @@ const Login: React.FC = () => {
 
   const onSubmit = async (data: LoginForm) => {
     try {
+      setLoading(true);
       const response = await api.post('/auth/login', data);
       const { access_token, user } = response.data;
       localStorage.setItem('token', access_token);
       localStorage.setItem('userId', user.id);
       api.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
       navigate('/dashboard');
+      setLoading(false);
     } catch (error: any) {
+      setLoading(false);
       console.error('Erro no login:', error.response?.data);
       setError('root', { message: error.response?.data?.message || 'Erro ao fazer login' });
     }
@@ -64,7 +69,7 @@ const Login: React.FC = () => {
           </div>
           {errors.root && <span className="error-message root-error">{errors.root.message}</span>}
           <div className="modal-actions">
-            <button type="submit" className="login-btn">Entrar</button>
+            <button type="submit" className="login-btn" disabled={loading}>{loading ? <AiOutlineLoading className='loading-icon' /> : 'Entrar'}</button>
           </div>
         </form>
         <p className="register-link">

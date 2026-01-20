@@ -1,9 +1,10 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useState } from 'react';
+import { set, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Link, useNavigate } from 'react-router-dom';
 import { registerUser } from '../services/api';
+import { AiOutlineLoading } from 'react-icons/ai';
 import './Login.css';
 
 const schema = yup.object({
@@ -19,6 +20,7 @@ interface RegisterForm {
 }
 
 const Register: React.FC = () => {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors }, setError } = useForm<RegisterForm>({
     resolver: yupResolver(schema),
@@ -26,9 +28,12 @@ const Register: React.FC = () => {
 
   const onSubmit = async (data: RegisterForm) => {
     try {
+      setLoading(true);
       await registerUser(data);
       navigate('/login');
+      setLoading(false);
     } catch (error: any) {
+      setLoading(false);
       console.error('Erro no registro:', error.response?.data);
       setError('root', { message: error.response?.data?.message || 'Erro ao fazer registro' });
     }
@@ -72,7 +77,7 @@ const Register: React.FC = () => {
           </div>
           {errors.root && <span className="error-message root-error">{errors.root.message}</span>}
           <div className="modal-actions">
-            <button type="submit" className="login-btn">Criar conta</button>
+            <button type="submit" className="login-btn" disabled={loading}>{loading ? <AiOutlineLoading className='loading-icon' /> : 'Criar conta'}</button>
           </div>
         </form>
         <p className="register-link">

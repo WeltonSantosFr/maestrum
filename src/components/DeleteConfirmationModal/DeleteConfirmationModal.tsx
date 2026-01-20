@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { AiOutlineLoading } from 'react-icons/ai';
 
 interface DeleteConfirmationModalProps {
   onConfirm: () => void;
@@ -6,6 +7,7 @@ interface DeleteConfirmationModalProps {
 }
 
 const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({ onClose, onConfirm }) => {
+  const [loading, setLoading] = useState(false);
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -19,10 +21,15 @@ const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({ onClo
             Cancelar
           </button>
           <button 
-            onClick={onConfirm}
-            className="flex-[2] bg-red-500 text-white py-3 rounded-2xl text-xs font-bold shadow-lg hover:bg-red-600 transition-all uppercase tracking-widest"
-          >
-            Excluir
+            onClick={() => {
+              setLoading(true);
+              onConfirm()
+              setTimeout(() => {
+                setLoading(false);
+                onClose();
+              }, 500);
+              }} disabled={loading}>
+            {loading ? <AiOutlineLoading className='loading-icon' /> : 'Excluir'}
           </button>
         </div>
       </div>

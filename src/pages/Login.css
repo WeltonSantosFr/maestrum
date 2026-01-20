@@ -30,6 +30,15 @@
     }
 }
 
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .login-modal-content h2 {
     font-size: 1.25rem;
     font-weight: 900;
@@ -125,4 +134,10 @@
 
 .register-link a:hover {
     text-decoration: underline;
+}
+
+.loading-icon {
+    animation: spin 1s linear infinite;
+    font-size: 1.25rem;
+    display: inline-block;
 }
