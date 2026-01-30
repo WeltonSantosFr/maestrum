@@ -111,9 +111,7 @@ const Dashboard: React.FC = () => {
     if (exerciseToDeleteId === null) return;
 
     const originalExercises = exercises;
-    const deletedIndex = originalExercises.findIndex(
-      (ex) => ex.id === exerciseToDeleteId,
-    );
+    
     setExercises((prev) => prev.filter((ex) => ex.id !== exerciseToDeleteId));
 
     try {
@@ -173,7 +171,7 @@ const Dashboard: React.FC = () => {
               <h2 className="playlist-title">Sua Playlist</h2>
               <span className="playlist-count">{exercises.length} itens</span>
             </div>
-            {exercises.map((ex, index) => (
+            {exercises.map((ex) => (
               <ExerciseCard
                 key={ex.id}
                 exercise={ex}
