@@ -108,9 +108,6 @@ export default function ExerciseCard({
     setIsRunning(false);
   };
 
-  
-  const icon = exercise.icon || "🎸";
-
   return (
     <div
       onClick={onClick}

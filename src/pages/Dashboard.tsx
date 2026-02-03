@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
 import "./Dashboard.css";
-import ExerciseCard from "../components/ExerciseCard/ExerciseCard";
 import ExerciseDetails from "../components/ExerciseDetails/ExerciseDetails";
 import BpmChart from "../components/BpmChart/BpmChart";
 import ExerciseModal from "../components/ExerciseModal/ExerciseModal";
