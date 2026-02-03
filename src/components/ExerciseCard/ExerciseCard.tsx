@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import type { Exercise } from "../../types";
 import "./ExerciseCard.css";
-import "../ExerciseTimer/ExerciseTimer.css"; // Re-using some timer styles
-import { MdEdit, MdDelete } from "react-icons/md";
+import "../ExerciseTimer/ExerciseTimer.css";
+import { MdEdit, MdDelete, MdDragIndicator } from "react-icons/md";
 
 interface ExerciseCardProps {
-  exercise: Exercise & { icon?: string }; // Adding optional icon from example
+  exercise: Exercise & { icon?: string };
   isActive: boolean;
   onClick: () => void;
   onDelete: () => void;
@@ -53,9 +53,9 @@ export default function ExerciseCard({
       oscillator.frequency.setValueAtTime(2500, audioCtx.currentTime);
 
       gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-      // Sobe para o volume máximo em 0.01s (ataque)
+      
       gainNode.gain.linearRampToValueAtTime(0.8, audioCtx.currentTime + 0.01);
-      // Cai gradualmente para simular a vibração do metal sumindo
+      
       gainNode.gain.exponentialRampToValueAtTime(
         0.0001,
         audioCtx.currentTime + 0.8,
@@ -65,18 +65,19 @@ export default function ExerciseCard({
       oscillator.stop(audioCtx.currentTime + 1);
 
       count++;
-    }, 1500);
+    }, 500);
   }, []);
 
   useEffect(() => {
     if (timeLeft === 0 && isRunning) {
       setIsRunning(false);
       playAlertSound();
+      setTimeout(playAlertSound, 2000)
     }
   }, [timeLeft, isRunning, playAlertSound]);
 
   useEffect(() => {
-    // Reset timer when exercise changes
+    
     setTimeLeft(exercise.durationMinutes);
     setIsRunning(false);
   }, [exercise.durationMinutes]);
@@ -107,7 +108,7 @@ export default function ExerciseCard({
     setIsRunning(false);
   };
 
-  // The example uses a simple icon string. We'll add a default if not provided.
+  
   const icon = exercise.icon || "🎸";
 
   return (
@@ -117,7 +118,7 @@ export default function ExerciseCard({
     >
       <div className="card-header">
         <div className="card-info">
-          <div className="card-icon">{icon}</div>
+          <div className="card-icon"><MdDragIndicator size={24} style={{ cursor: 'grab', color: '#666' }} /></div>
           <div>
             <h3 className="card-title">{exercise.name}</h3>
             {!isActive && (

@@ -3,22 +3,6 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import './ExerciseHistory.css';
 import type { Exercise } from '../../types';
 
-// interface HistoricoEntry {
-//   data: string;
-//   bpm: number;
-// }
-
-// interface Exercise {
-//   id: number;
-//   nome: string;
-//   duracao: number;
-//   bpmRecorde: number;
-//   historico: HistoricoEntry[];
-// }
-
-// interface ExerciseHistoryProps {
-//   exercise: Exercise | null;
-// }
 
 export default function ExerciseHistory({ exercise }: { exercise: Exercise | null }) {
   const [showModal, setShowModal] = useState(false);
@@ -32,7 +16,6 @@ export default function ExerciseHistory({ exercise }: { exercise: Exercise | nul
     );
   }
 
-  // Filter to last 30 days
   const thirtyDaysAgo = new Date();
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 

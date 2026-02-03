@@ -17,7 +17,7 @@ const LandingPage: React.FC = () => {
     >
       <header className="dashboard-header">
         <div className="header-title">
-          <h1>MUSIC <span>STUDIO</span></h1>
+          <h1>MAESTRUM</h1>
           <p>Gerenciador de Prática</p>
         </div>
         <div className="header-actions">
@@ -32,7 +32,7 @@ const LandingPage: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <h2 className="landing-headline">Aprenda guitarra de forma interativa e divertida</h2>
+          <h2 className="landing-headline">Treine de forma interativa e divertida</h2>
           <p className="landing-description">
             Crie e personalize sua própria lista de exercícios de guitarra. Acompanhe seu progresso, defina metas, registre recordes de BPM e muito mais.
             Comece sua jornada musical hoje e toque suas músicas favoritas!
@@ -43,7 +43,7 @@ const LandingPage: React.FC = () => {
         </motion.div>
       </main>
       <footer className="landing-footer">
-        <p>&copy; 2026 GiTaa. Todos os direitos reservados.</p>
+        <p>&copy; 2026 Maestrum. Todos os direitos reservados.</p>
       </footer>
     </motion.div>
   );

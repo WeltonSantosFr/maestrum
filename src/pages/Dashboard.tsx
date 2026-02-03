@@ -12,9 +12,12 @@ import {
   deleteExercise,
 } from "../services/api";
 import type { Exercise } from "../types";
+import ExerciseList from "../components/ExerciseList/ExerciseList";
 
 const Dashboard: React.FC = () => {
-  const [selectedExerciseId, setSelectedExerciseId] = useState<string | null>(null);
+  const [selectedExerciseId, setSelectedExerciseId] = useState<string | null>(
+    null,
+  );
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -49,8 +52,9 @@ const Dashboard: React.FC = () => {
   }, []);
 
   const selectedEx = useMemo(() => {
-    if(!selectedExerciseId || exercises.length === 0) return exercises[0] || null;
-    return exercises.find(ex => ex.id == selectedExerciseId) || exercises[0]
+    if (!selectedExerciseId || exercises.length === 0)
+      return exercises[0] || null;
+    return exercises.find((ex) => ex.id == selectedExerciseId) || exercises[0];
   }, [selectedExerciseId, exercises]);
 
   const handleSaveExercise = async (
@@ -111,14 +115,17 @@ const Dashboard: React.FC = () => {
     if (exerciseToDeleteId === null) return;
 
     const originalExercises = exercises;
-    
+
     setExercises((prev) => prev.filter((ex) => ex.id !== exerciseToDeleteId));
 
     try {
       await deleteExercise(exerciseToDeleteId);
       if (selectedExerciseId === exerciseToDeleteId) {
         setSelectedExerciseId(exercises.length > 1 ? exercises[0].id : null);
-      } else if (selectedExerciseId !== null && selectedExerciseId > exerciseToDeleteId) {
+      } else if (
+        selectedExerciseId !== null &&
+        selectedExerciseId > exerciseToDeleteId
+      ) {
         setSelectedExerciseId(selectedExerciseId);
       }
     } catch (error) {
@@ -148,9 +155,7 @@ const Dashboard: React.FC = () => {
     <div className="dashboard-container">
       <header className="dashboard-header">
         <div className="header-title">
-          <h1>
-            MUSIC <span>STUDIO</span>
-          </h1>
+          <h1>MAESTRUM</h1>
           <p>Gerenciador de Prática</p>
         </div>
         <button
@@ -171,16 +176,13 @@ const Dashboard: React.FC = () => {
               <h2 className="playlist-title">Sua Playlist</h2>
               <span className="playlist-count">{exercises.length} itens</span>
             </div>
-            {exercises.map((ex) => (
-              <ExerciseCard
-                key={ex.id}
-                exercise={ex}
-                isActive={selectedExerciseId === ex.id}
-                onClick={() => setSelectedExerciseId(ex.id)}
-                onDelete={() => handleDeleteExercise(ex.id)}
-                onEdit={(e) => openEdit(ex, e)}
-              />
-            ))}
+            <ExerciseList
+              exercises={exercises}
+              selectedExerciseId={selectedExerciseId}
+              onSelectExercise={setSelectedExerciseId}
+              onDeleteExercise={handleDeleteExercise}
+              onEditExercise={openEdit}
+            />
           </div>
         </section>
 

@@ -1,18 +1,18 @@
 .chart-card {
-    background-color: #1e293b; /* bg-slate-900 */
-    padding: 1.5rem; /* p-6 */
+    background-color: #1e293b;
+    padding: 1.5rem; 
     border-radius: 35px;
-    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); /* shadow-xl */
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
     color: white;
     position: relative;
 }
 
 .chart-title {
-    font-size: 0.625rem; /* text-[10px] */
-    font-weight: 700; /* font-bold */
-    letter-spacing: 0.2em; /* tracking-[0.2em] */
-    color: #64748b; /* text-slate-500 */
-    margin-bottom: 1.5rem; /* mb-6 */
+    font-size: 0.625rem; 
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: #64748b;
+    margin-bottom: 1.5rem;
     text-transform: uppercase;
     font-style: italic;
 }

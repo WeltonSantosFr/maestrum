@@ -2,7 +2,7 @@
 
 body {
     font-family: sans-serif;
-    color: #374151; /* text-slate-800 */
+    color: #374151;
 }
 
 .dashboard-container {
@@ -18,7 +18,7 @@ body {
 }
 
 .dashboard-header {
-    max-width: 96rem; /* max-w-6xl -> 72rem, but the example looks wider */
+    max-width: 96rem; 
     margin: 0 auto 2rem auto;
     display: flex;
     align-items: center;
@@ -26,33 +26,33 @@ body {
 }
 
 .header-title h1 {
-    font-size: 1.875rem; /* text-3xl */
-    font-weight: 900; /* font-black */
+    font-size: 1.875rem; 
+    font-weight: 900;
     font-style: italic;
-    letter-spacing: -0.05em; /* tracking-tighter */
+    letter-spacing: -0.05em; 
     color: #06B6D4;
 }
 
 .header-title h1 span {
-    color: #d1d5db; /* text-slate-300 */
+    color: #d1d5db; 
 }
 
 .header-title p {
-    font-size: 0.625rem; /* text-[10px] */
-    font-weight: 700; /* font-bold */
+    font-size: 0.625rem;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.3em;
-    color: #94a3b8; /* text-slate-400 */
+    color: #94a3b8; 
 }
 
 .new-exercise-btn {
     background-color: #06B6D4;
     color: white;
     padding: 0.5rem 1.25rem;
-    border-radius: 1rem; /* rounded-2xl */
-    font-size: 0.75rem; /* text-xs */
-    font-weight: 700; /* font-bold */
-    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); /* shadow-lg */
+    border-radius: 1rem; 
+    font-size: 0.75rem; 
+    font-weight: 700;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); 
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -128,15 +128,15 @@ body {
 }
 
 .playlist-title {
-    font-size: 0.75rem; /* text-xs */
-    font-weight: 900; /* font-black */
+    font-size: 0.75rem; 
+    font-weight: 900; 
     text-transform: uppercase;
-    letter-spacing: 0.1em; /* tracking-widest */
-    color: #94a3b8; /* text-slate-400 */
+    letter-spacing: 0.1em; 
+    color: #94a3b8; 
 }
 
 .playlist-count {
-    font-size: 0.625rem; /* text-[10px] */
-    font-weight: 700; /* font-bold */
-    color: #94a3b8; /* text-slate-400 */
+    font-size: 0.625rem; 
+    font-weight: 700; 
+    color: #94a3b8; 
 }

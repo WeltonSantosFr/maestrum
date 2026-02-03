@@ -108,8 +108,8 @@
 }
 
 .error-message {
-    color: #ef4444; /* text-red-500 */
-    font-size: 0.75rem; /* text-xs */
+    color: #ef4444; 
+    font-size: 0.75rem; 
     margin-top: 0.25rem;
     margin-left: 0.5rem;
 }
@@ -123,7 +123,7 @@
     margin-top: 1.5rem;
     text-align: center;
     font-size: 0.75rem;
-    color: #64748b; /* text-slate-500 */
+    color: #64748b; 
 }
 
 .register-link a {

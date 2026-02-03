@@ -2,7 +2,6 @@ import './ExerciseDetails.css';
 import type { Exercise } from '../../types';
 
 interface ExerciseDetailsProps {
-  // The props from the old component are no longer needed
   exercise: (Exercise & { icon?: string, desc?: string }) | null;
 }
 

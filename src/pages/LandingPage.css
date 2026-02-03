@@ -1,15 +1,14 @@
-/* LandingPage.css */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
 
 body {
   font-family: 'Inter', sans-serif;
-  color: #374151; /* text-slate-800 */
+  color: #374151; 
 }
 
 .landing-container {
   min-height: 100vh;
   padding: 1rem;
-  background-color: #f1f5f9; /* bg-slate-100 */
+  background-color: #f1f5f9; 
 }
 
 @media (min-width: 768px) {
@@ -53,7 +52,7 @@ body {
 
 .btn {
   display: inline-block;
-  padding: 0.5625rem 1.25rem; /* ~30px height */
+  padding: 0.5625rem 1.25rem; 
   font-size: 0.75rem;
   font-weight: 700;
   text-decoration: none;
@@ -74,14 +73,14 @@ body {
 }
 
 .btn-secondary {
-  background-color: #e2e8f0; /* bg-slate-200 */
-  color: #334155; /* text-slate-700 */
+  background-color: #e2e8f0; 
+  color: #334155; 
   border: none;
 }
 
 .btn-secondary:hover {
-  background-color: #cbd5e1; /* bg-slate-300 */
-  color: #334155; /* text-slate-700 */
+  background-color: #cbd5e1; 
+  color: #334155; 
 }
 
 .landing-main {
@@ -105,12 +104,12 @@ body {
 .landing-description {
   font-size: 1.125rem;
   line-height: 1.75;
-  color: #4b5563; /* text-slate-600 */
+  color: #4b5563; 
   margin-bottom: 2.5rem;
 }
 
 .cta-button {
-  padding: 0.625rem 2rem; /* ~36px height */
+  padding: 0.625rem 2rem; 
   font-size: 0.875rem;
 }
 
@@ -121,10 +120,10 @@ body {
   color: #94a3b8;
 }
 
-/* Responsividade */
+
 @media (max-width: 768px) {
   .header-actions {
-    display: none; /* Hide in header, shown in main content */
+    display: none; 
   }
 
   .landing-headline {

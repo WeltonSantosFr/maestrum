@@ -1,170 +1,111 @@
-import { useState } from 'react';
-import { MdClose } from 'react-icons/md';
-import ExerciseTimer from '../ExerciseTimer/ExerciseTimer';
-import './ExerciseList.css';
+import React, { useEffect, useState } from 'react';
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  type DragEndEvent,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+  useSortable,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+import ExerciseCard from '../ExerciseCard/ExerciseCard';
 import type { Exercise } from '../../types';
-import { AiOutlineLoading } from 'react-icons/ai';
-
-function formatTime(seconds: number): string {
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = seconds % 60;
-  return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
-}
-
-function parseTimeToSeconds(timeString: string): number {
-  const parts = timeString.split(':');
-  if (parts.length === 2) {
-    const minutes = parseInt(parts[0]) || 0;
-    const seconds = parseInt(parts[1]) || 0;
-    return minutes * 60 + seconds;
-  }
-  return parseInt(timeString) || 0;
-}
 
 interface ExerciseListProps {
-  selectedExercise: number | null;
-  onSelectExercise: (index: number | null) => void;
   exercises: Exercise[];
-  onAddExercise: (name: string, duration: number, bpm: number) => void;
-  onDeleteExercise: (index: number) => void;
+  selectedExerciseId: string | null;
+  onSelectExercise: (id: string) => void;
+  onDeleteExercise: (id: string) => void;
+  onEditExercise: (ex: Exercise, e: React.MouseEvent) => void;
 }
 
-export default function ExerciseList({ selectedExercise, onSelectExercise, exercises, onAddExercise, onDeleteExercise }: ExerciseListProps) {
-  const [loading, setLoading] = useState(false);
-  const [showAddModal, setShowAddModal] = useState(false);
-  const [newExerciseName, setNewExerciseName] = useState('');
-  const [newExerciseDuration, setNewExerciseDuration] = useState('');
-  const [newExerciseBpm, setNewExerciseBpm] = useState('');
-  const handleExerciseClick = (index: number) => {
-    onSelectExercise(index);
-  };
+const SortableItem = ({ exercise, isActive, onClick, onDelete, onEdit }: any) => {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = 
+    useSortable({ id: exercise.id });
 
-  const handleStop = () => {
-    onSelectExercise(null);
-  };
-
-  const handleSkip = () => {
-    if (selectedExercise !== null && selectedExercise < exercises.length - 1) {
-      const nextIndex = selectedExercise + 1;
-      onSelectExercise(nextIndex);
-    }
-  };
-
-  const handleDeleteClick = (e: React.MouseEvent, index: number) => {
-    e.stopPropagation(); // Prevent triggering the exercise selection
-    onDeleteExercise(index);
-  };
-
-  const handleAddClick = () => {
-    setShowAddModal(true);
-  };
-
-  const handleSaveNewExercise = () => {
-    setLoading(true);
-    const name = newExerciseName.trim();
-    const duration = parseTimeToSeconds(newExerciseDuration);
-    const bpm = parseInt(newExerciseBpm);
-
-    if (name && duration > 0 && bpm >= 0) {
-      onAddExercise(name, duration, bpm);
-      setShowAddModal(false);
-      setNewExerciseName('');
-      setNewExerciseDuration('');
-      setNewExerciseBpm('');
-    }
-  };
-
-  const handleCancelAdd = () => {
-    setShowAddModal(false);
-    setNewExerciseName('');
-    setNewExerciseDuration('');
-    setNewExerciseBpm('');
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+    cursor: isDragging ? 'grabbing' : 'pointer',
   };
 
   return (
-    <div className="exercise-list-card">
-      <div className="exercise-list-header">
-        <h2>Lista de Exercícios</h2>
-        <button onClick={handleAddClick} className="add-exercise-btn">Adicionar Exercício</button>
-      </div>
-      <div className="exercise-list">
-        {exercises.map((exercise, index) => (
-          <div
-            key={exercise.id}
-            className={`exercise-item ${selectedExercise === index ? 'selected' : ''}`}
-            onClick={() => handleExerciseClick(index)}
-          >
-            <div className="exercise-item-content">
-              <div className="exercise-info">
-                <span className="exercise-name">{exercise.name}</span>
-                <span className="exercise-time">{formatTime(exercise.durationMinutes)}</span>
-              </div>
-              <button 
-                onClick={(e) => handleDeleteClick(e, index)} 
-                className="delete-exercise-btn"
-                title="Excluir exercício"
-              >
-                <MdClose />
-              </button>
-            </div>
-            {selectedExercise === index && (
-              <ExerciseTimer
-                key={selectedExercise}
-                duration={exercises[selectedExercise].durationMinutes}
-                onStop={handleStop}
-                onSkip={handleSkip}
-              />
-            )}
-          </div>
-        ))}
-      </div>
-
-      {showAddModal && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <h3>Adicionar Novo Exercício</h3>
-            <div className="modal-form">
-              <div className="form-group">
-                <label htmlFor="exercise-name">Nome do Exercício:</label>
-                <input
-                  id="exercise-name"
-                  type="text"
-                  value={newExerciseName}
-                  onChange={(e) => setNewExerciseName(e.target.value)}
-                  placeholder="Ex: Palhetada Alternada 1 nota por corda"
-                  autoFocus
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="exercise-duration">Duração (mm:ss):</label>
-                <input
-                  id="exercise-duration"
-                  type="text"
-                  value={newExerciseDuration}
-                  onChange={(e) => setNewExerciseDuration(e.target.value)}
-                  placeholder="1:30"
-                  pattern="[0-9]+:[0-9]{1,2}"
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="exercise-bpm">BPM Inicial:</label>
-                <input
-                  id="exercise-bpm"
-                  type="number"
-                  value={newExerciseBpm}
-                  onChange={(e) => setNewExerciseBpm(e.target.value)}
-                  placeholder="0"
-                  min="0"
-                />
-              </div>
-            </div>
-            <div className="modal-actions">
-              <button onClick={handleCancelAdd} className="cancel-btn">Cancelar</button>
-              <button onClick={handleSaveNewExercise} className="save-btn" disabled={loading}>{loading ? <AiOutlineLoading className='loading-icon' /> : 'Salvar'}</button>
-            </div>
-          </div>
-        </div>
-      )}
+    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+      <ExerciseCard
+        exercise={exercise}
+        isActive={isActive}
+        onClick={onClick}
+        onDelete={onDelete}
+        onEdit={onEdit}
+      />
     </div>
+  );
+};
+
+export default function ExerciseList({ 
+  exercises, 
+  selectedExerciseId, 
+  onSelectExercise, 
+  onDeleteExercise, 
+  onEditExercise 
+}: ExerciseListProps) {
+  const [items, setItems] = useState<Exercise[]>([]);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
+    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
+  );
+
+  useEffect(() => {
+    const savedOrder = localStorage.getItem('exercise_order');
+    if (savedOrder && exercises.length > 0) {
+      const idOrder = JSON.parse(savedOrder) as string[];
+      const sorted = [...exercises].sort((a, b) => {
+        const indexA = idOrder.indexOf(a.id);
+        const indexB = idOrder.indexOf(b.id);
+        return (indexA === -1 ? 999 : indexA) - (indexB === -1 ? 999 : indexB);
+      });
+      setItems(sorted);
+    } else {
+      setItems(exercises);
+    }
+  }, [exercises]);
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (over && active.id !== over.id) {
+      const oldIndex = items.findIndex((i) => i.id === active.id);
+      const newIndex = items.findIndex((i) => i.id === over.id);
+      
+      const newArray = arrayMove(items, oldIndex, newIndex);
+      setItems(newArray);
+      localStorage.setItem('exercise_order', JSON.stringify(newArray.map(i => i.id)));
+    }
+  };
+
+  return (
+    <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+      <SortableContext items={items.map(i => i.id)} strategy={verticalListSortingStrategy}>
+        {items.map((ex) => (
+          <SortableItem
+            key={ex.id}
+            exercise={ex}
+            isActive={selectedExerciseId === ex.id}
+            onClick={() => onSelectExercise(ex.id)}
+            onDelete={() => onDeleteExercise(ex.id)}
+            onEdit={(e: React.MouseEvent) => onEditExercise(ex, e)}
+          />
+        ))}
+      </SortableContext>
+    </DndContext>
   );
 }

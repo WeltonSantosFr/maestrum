@@ -110,9 +110,9 @@
   padding: 20px;
 }
 
-/* Corpo do Gameboy / Timer */
+
 .device-body {
-  background-color: #4DD0E1; /* Cor ciano da imagem */
+  background-color: #4DD0E1;
   width: 240px;
   padding: 20px;
   border-radius: 25px;
@@ -127,9 +127,8 @@
   gap: 20px;
 }
 
-/* Moldura e Tela LCD */
 .lcd-screen {
-  background-color: #9dac9a; /* Tom de verde de tela de gameboy antigo */
+  background-color: #9dac9a;
   width: auto;
   padding: 10px 20px;
   border-radius: 10px;
@@ -146,7 +145,6 @@
               inset -3px -3px 5px rgba(255,255,255,0.2);
 }
 
-/* Efeito de grade de pixels */
 .pixel-grid-overlay {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -164,7 +162,7 @@
   z-index: 1;
 }
 
-/* Botões Neomórficos */
+
 .controls-row {
   display: flex;
   gap: 15px;
@@ -201,7 +199,7 @@
               -4px -4px 8px rgba(255,255,255,0.5);
 }
 
-/* Ícones simples com CSS */
+
 .stop-square {
   width: 15px;
   height: 15px;

@@ -3,21 +3,21 @@
     overflow: hidden;
     background-color: rgba(255, 255, 255, 0.7);
     padding: 1rem;
-    border-radius: 1.25rem; /* rounded-[20px] */
+    border-radius: 1.25rem; 
     border: 1px solid transparent;
     cursor: pointer;
 }
 
 .exercise-card:hover {
     background-color: white;
-    border-color: #e2e8f0; /* border-slate-200 */
+    border-color: #e2e8f0; 
 }
 
 .exercise-card.active {
     background-color: white;
     padding: 1.5rem;
-    border-radius: 2.5rem; /* rounded-[40px] */
-    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); /* shadow-md */
+    border-radius: 2.5rem; 
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); 
     border: 2px solid rgba(6, 182, 212, 0.3);
 }
 
@@ -34,12 +34,12 @@
 }
 
 .card-icon {
-    font-size: 1.5rem; /* text-2xl */
+    font-size: 1.5rem; 
 }
 
 .card-title {
-    font-weight: 700; /* font-bold */
-    color: #475569; /* text-slate-600 */
+    font-weight: 700; 
+    color: #475569; 
     transition: all 0.3s;
 }
 
@@ -48,8 +48,8 @@
 }
 
 .card-desc {
-    font-size: 0.625rem; /* text-[10px] */
-    color: #94a3b8; /* text-slate-400 */
+    font-size: 0.625rem; 
+    color: #94a3b8; 
     font-weight: 700;
     text-transform: uppercase;
     font-style: italic;
@@ -73,18 +73,18 @@
     background-color: transparent;
     border: none;
     cursor: pointer;
-    color: #94a3b8; /* text-slate-400 */
+    color: #94a3b8; 
     transition: all 0.2s;
 }
 
 .card-action-btn:hover {
-    background-color: #f1f5f9; /* hover:bg-slate-100 */
-    color: #06B6D4; /* hover:text-[#06B6D4] */
+    background-color: #f1f5f9; 
+    color: #06B6D4; 
 }
 
 .card-action-btn.delete:hover {
-    background-color: #fee2e2; /* hover:bg-red-50 */
-    color: #ef4444; /* hover:text-red-500 */
+    background-color: #fee2e2; 
+    color: #ef4444; 
 }
 
 .card-timer-container {
@@ -97,7 +97,7 @@
 }
 
 .exercise-card.active .card-timer-container {
-    max-height: 400px; /* or enough to show content */
+    max-height: 400px; 
     opacity: 1;
     margin-top: 1.5rem;
 }

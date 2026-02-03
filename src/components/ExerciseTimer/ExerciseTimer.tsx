@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import './ExerciseTimer.css';
 
 interface ExerciseTimerProps {
-  duration: number; // in seconds
+  duration: number;
   onStop: () => void;
   onSkip: () => void;
 }
@@ -46,7 +46,7 @@ export default function ExerciseTimer({ duration, onStop, onSkip }: ExerciseTime
       oscillator.connect(gainNode);
       gainNode.connect(audioContext.destination);
 
-      oscillator.frequency.setValueAtTime(800, audioContext.currentTime); // Frequency in Hz
+      oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
       oscillator.type = 'sine';
 
       gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
@@ -56,10 +56,13 @@ export default function ExerciseTimer({ duration, onStop, onSkip }: ExerciseTime
       oscillator.stop(audioContext.currentTime + 0.5);
     };
 
-    // Play three beeps with 0.7 second intervals
+    
     playSingleBeep();
-    setTimeout(playSingleBeep, 700);
-    setTimeout(playSingleBeep, 1400);
+    setTimeout(playSingleBeep, 500);
+    setTimeout(playSingleBeep, 1000);
+    setTimeout(playSingleBeep, 2000);
+    setTimeout(playSingleBeep, 2500);
+    setTimeout(playSingleBeep, 3000);
   };
 
   const formatTime = (seconds: number): string => {
@@ -99,7 +102,6 @@ export default function ExerciseTimer({ duration, onStop, onSkip }: ExerciseTime
   return (
   <div className="device-container">
     <div className="device-body">
-      {/* Tela LCD */}
       <div className="lcd-screen">
         <div className="pixel-grid-overlay"></div>
         <div className="timer-display-retro">
@@ -107,7 +109,6 @@ export default function ExerciseTimer({ duration, onStop, onSkip }: ExerciseTime
         </div>
       </div>
 
-      {/* Controles Estilizados */}
       <div className="controls-row">
         <button className="btn-round" onClick={handlePlayPause}>
           <span className={isRunning && !isPaused ? "pause-icon" : "play-icon"}></span>
