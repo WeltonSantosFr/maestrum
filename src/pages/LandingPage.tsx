@@ -1,12 +1,40 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import './LandingPage.css';
 
 const LandingPage: React.FC = () => {
+  const navigate = useNavigate();
+
   const buttonVariants = {
     hover: { scale: 1.05, transition: { duration: 0.2 } },
   };
+
+  useEffect(() => {
+    const checkAutoLogin = () => {
+      const token = localStorage.getItem('token');
+      
+      if (!token) return;
+
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        
+        const isTokenValid = payload.exp * 1000 > Date.now();
+
+        if (isTokenValid) {
+          navigate('/dashboard'); 
+        } else {
+          localStorage.removeItem('token');
+          localStorage.removeItem('userId');
+        }
+      } catch (error) {
+        console.error("Token inválido", error);
+      }
+    };
+
+    checkAutoLogin();
+  }, [navigate]);
 
   return (
     <motion.div
