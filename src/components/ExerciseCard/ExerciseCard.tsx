@@ -146,7 +146,7 @@ export default function ExerciseCard({
       <div className="card-timer-container">
         <div
           className="device-body"
-          style={{ width: "280px", padding: "15px", borderRadius: "20px" }}
+          style={{ width: "240px", padding: "15px", borderRadius: "20px" }}
         >
           <div className="lcd-screen" style={{ padding: "5px 15px" }}>
             <div className="pixel-grid-overlay"></div>

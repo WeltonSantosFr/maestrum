@@ -1,3 +1,4 @@
+import "react-loading-skeleton/dist/skeleton.css";
 import React, { useEffect, useState } from 'react';
 import {
   DndContext,
@@ -18,8 +19,10 @@ import {
 import { CSS } from '@dnd-kit/utilities';
 import ExerciseCard from '../ExerciseCard/ExerciseCard';
 import type { Exercise } from '../../types';
+import Skeleton from 'react-loading-skeleton';
 
 interface ExerciseListProps {
+  loading: boolean;
   exercises: Exercise[];
   selectedExerciseId: string | null;
   onSelectExercise: (id: string) => void;
@@ -51,7 +54,8 @@ const SortableItem = ({ exercise, isActive, onClick, onDelete, onEdit }: any) =>
   );
 };
 
-export default function ExerciseList({ 
+export default function ExerciseList({
+  loading,
   exercises, 
   selectedExerciseId, 
   onSelectExercise, 
@@ -91,6 +95,31 @@ export default function ExerciseList({
       localStorage.setItem('exercise_order', JSON.stringify(newArray.map(i => i.id)));
     }
   };
+
+  if(loading) {
+    return (
+      <div className="exercise-list-skeleton">
+        {[1, 2, 3, 4, 5].map((item) => (
+          <div 
+            key={item} 
+            style={{ 
+              marginBottom: '8px', 
+              padding: '1rem', 
+              border: '1px solid transparent', 
+              borderRadius: '20px',
+              backgroundColor: '#ffffffb3'
+            }}
+          >
+            {/* Simula o Título do Exercício */}
+            <Skeleton height={20} width="70%" />
+            
+            {/* Simula detalhes (BPM, etc) */}
+            <Skeleton height={14} width="40%" style={{ marginTop: 8 }} />
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   return (
     <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>

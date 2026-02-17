@@ -1,3 +1,4 @@
+import "react-loading-skeleton/dist/skeleton.css";
 import React, { useState, useEffect, useMemo } from "react";
 import "./Dashboard.css";
 import ExerciseDetails from "../components/ExerciseDetails/ExerciseDetails";
@@ -12,6 +13,7 @@ import {
 } from "../services/api";
 import type { Exercise } from "../types";
 import ExerciseList from "../components/ExerciseList/ExerciseList";
+import Skeleton from "react-loading-skeleton";
 
 const Dashboard: React.FC = () => {
   const [selectedExerciseId, setSelectedExerciseId] = useState<string | null>(
@@ -59,7 +61,7 @@ const Dashboard: React.FC = () => {
   const handleSaveExercise = async (
     data: Omit<Exercise, "id" | "history"> & { id?: string; desc?: string },
   ) => {
-    const { desc, ...exerciseData } = data;
+    const { ...exerciseData } = data;
 
     if (editingExercise) {
       const originalExercises = exercises;
@@ -127,7 +129,7 @@ const Dashboard: React.FC = () => {
       ) {
         setSelectedExerciseId(selectedExerciseId);
       }
-    } catch (error) {
+    } catch {
       setError("Failed to delete exercise");
       setExercises(originalExercises);
     } finally {
@@ -147,7 +149,7 @@ const Dashboard: React.FC = () => {
     setIsModalOpen(true);
   };
 
-  if (loading) return <div>Loading...</div>;
+  // if (loading) return <Skeleton count={5}/>;
   if (error) return <div style={{ color: "red" }}>{error}</div>;
 
   return (
@@ -172,10 +174,22 @@ const Dashboard: React.FC = () => {
         <section className="left-panel-dash">
           <div className="left-panel-inner custom-scrollbar">
             <div className="playlist-header">
-              <h2 className="playlist-title">Sua Playlist</h2>
-              <span className="playlist-count">{exercises.length} itens</span>
+              {loading ? (
+                <>
+                  <Skeleton height={"28px"} width={"150px"} />
+                  <Skeleton height={"28px"} width={"100px"} />
+                </>
+              ) : (
+                <>
+                  <h2 className="playlist-title">Sua Playlist</h2>
+                  <span className="playlist-count">
+                    {exercises.length} itens
+                  </span>
+                </>
+              )}
             </div>
             <ExerciseList
+              loading={loading}
               exercises={exercises}
               selectedExerciseId={selectedExerciseId}
               onSelectExercise={setSelectedExerciseId}
@@ -186,8 +200,11 @@ const Dashboard: React.FC = () => {
         </section>
 
         <section className="right-panel-dash">
-          <ExerciseDetails exercise={selectedEx} />
+          <ExerciseDetails exercise={selectedEx} loading={loading} />
+          {loading ? (<Skeleton height={232} baseColor="#1e293b" highlightColor="#334155" style={{borderRadius: '35px', marginTop: '1rem'}}/>)
+          :
           <BpmChart exercise={selectedEx} />
+          }
         </section>
       </main>
 
