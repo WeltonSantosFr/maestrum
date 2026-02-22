@@ -29,6 +29,7 @@ const Dashboard: React.FC = () => {
   const [exerciseToDeleteId, setExerciseToDeleteId] = useState<string | null>(
     null,
   );
+  const [playMode, setPlayMode] = useState<"simple" | "list">("simple");
 
   const loadExercises = async () => {
     const userId = localStorage.getItem("userId");
@@ -182,23 +183,34 @@ const Dashboard: React.FC = () => {
               ) : (
                 <>
                   <h2 className="playlist-title">Sua Playlist</h2>
-                  <div className="list-mode-toggle">
-                              <button 
-                                  className={`mode-btn ${playMode === 'simple' ? 'active' : ''}`}
-                                  // onClick={() => onToggleMode('simple')}
-                              >
-                                 <MdPlayCircleOutline />
-                              </button>
-                              <button 
-                                  className={`mode-btn ${playMode === 'list' ? 'active' : ''}`}
-                                  // onClick={() => onToggleMode('list')}
-                              >
-                                  <MdPlaylistPlay />
-                              </button>
-                          </div>
-                  <span className="playlist-count">
-                    {exercises.length} itens
-                  </span>
+                  <div className="playlist-controls">
+                    <div className="list-mode-toggle-container">
+                    <div className="tooltip-box">
+                      Clique para alternar entre:
+                  
+                      <p><strong>Simple Play:</strong> Roda apenas um exercicio</p>
+                      <p><strong>List Play:</strong> Roda todos os exercicios da playlist com uma pausa de 1 minuto entre cada play</p>
+                    </div>
+                    <div className="list-mode-toggle">
+                      <span className={`slider ${playMode}`} />
+                      <button
+                        className={`mode-btn ${playMode === "simple" ? "active" : ""}`}
+                        onClick={() => setPlayMode("simple")}
+                      >
+                        <MdPlayCircleOutline />
+                      </button>
+                      <button
+                        className={`mode-btn ${playMode === "list" ? "active" : ""}`}
+                        onClick={() => setPlayMode("list")}
+                      >
+                        <MdPlaylistPlay />
+                      </button>
+                    </div>
+                    </div>
+                    <span className="playlist-count">
+                      {exercises.length} itens
+                    </span>
+                  </div>
                 </>
               )}
             </div>
@@ -209,16 +221,23 @@ const Dashboard: React.FC = () => {
               onSelectExercise={setSelectedExerciseId}
               onDeleteExercise={handleDeleteExercise}
               onEditExercise={openEdit}
+              playMode={playMode}
             />
           </div>
         </section>
 
         <section className="right-panel-dash">
           <ExerciseDetails exercise={selectedEx} loading={loading} />
-          {loading ? (<Skeleton height={232} baseColor="#1e293b" highlightColor="#334155" style={{borderRadius: '35px', marginTop: '1rem'}}/>)
-          :
-          <BpmChart exercise={selectedEx} />
-          }
+          {loading ? (
+            <Skeleton
+              height={232}
+              baseColor="#1e293b"
+              highlightColor="#334155"
+              style={{ borderRadius: "35px", marginTop: "1rem" }}
+            />
+          ) : (
+            <BpmChart exercise={selectedEx} />
+          )}
         </section>
       </main>
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React from "react";
 import type { Exercise } from "../../types";
 import "./ExerciseCard.css";
 import "../ExerciseTimer/ExerciseTimer.css";
@@ -10,6 +10,11 @@ interface ExerciseCardProps {
   onClick: () => void;
   onDelete: () => void;
   onEdit: (e: React.MouseEvent) => void;
+  timeLeft: number;
+  isRunning: boolean;
+  isBreak: boolean;
+  onPlayPause: () => void;
+  onStop: () => void;
 }
 
 const formatTime = (s: number): string => {
@@ -23,89 +28,23 @@ const formatTime = (s: number): string => {
 export default function ExerciseCard({
   exercise,
   isActive,
+  timeLeft,
+  isRunning,
+  isBreak,
+  onPlayPause,
+  onStop,
   onClick,
   onDelete,
   onEdit,
 }: ExerciseCardProps) {
-  const [timeLeft, setTimeLeft] = useState(exercise.durationMinutes);
-  const [isRunning, setIsRunning] = useState(false);
-
-  const playAlertSound = useCallback(() => {
-    const audioCtx = new (
-      window.AudioContext || (window as any).webkitAudioContext
-    )();
-    let count = 0;
-
-    const interval = setInterval(() => {
-      if (count >= 3) {
-        clearInterval(interval);
-        audioCtx.close();
-        return;
-      }
-
-      const oscillator = audioCtx.createOscillator();
-      const gainNode = audioCtx.createGain();
-
-      oscillator.connect(gainNode);
-      gainNode.connect(audioCtx.destination);
-
-      oscillator.type = "sine";
-      oscillator.frequency.setValueAtTime(2500, audioCtx.currentTime);
-
-      gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-      
-      gainNode.gain.linearRampToValueAtTime(0.8, audioCtx.currentTime + 0.01);
-      
-      gainNode.gain.exponentialRampToValueAtTime(
-        0.0001,
-        audioCtx.currentTime + 0.8,
-      );
-
-      oscillator.start();
-      oscillator.stop(audioCtx.currentTime + 1);
-
-      count++;
-    }, 500);
-  }, []);
-
-  useEffect(() => {
-    if (timeLeft === 0 && isRunning) {
-      setIsRunning(false);
-      playAlertSound();
-      setTimeout(playAlertSound, 2000)
-    }
-  }, [timeLeft, isRunning, playAlertSound]);
-
-  useEffect(() => {
-    
-    setTimeLeft(exercise.durationMinutes);
-    setIsRunning(false);
-  }, [exercise.durationMinutes]);
-
-  useEffect(() => {
-    let interval: number | undefined;
-    if (isRunning && isActive && timeLeft > 0) {
-      interval = setInterval(
-        () => setTimeLeft((t) => (t > 0 ? t - 1 : 0)),
-        1000,
-      );
-    } else if (!isRunning || !isActive) {
-      clearInterval(interval);
-    }
-    return () => clearInterval(interval);
-  }, [isRunning, timeLeft, isActive]);
-
   const handlePlayPause = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (timeLeft > 0) {
-      setIsRunning(!isRunning);
-    }
+    onPlayPause();
   };
 
   const handleStop = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setTimeLeft(exercise.durationMinutes);
-    setIsRunning(false);
+    onStop();
   };
 
   return (
@@ -115,7 +54,12 @@ export default function ExerciseCard({
     >
       <div className="card-header">
         <div className="card-info">
-          <div className="card-icon"><MdDragIndicator size={24} style={{ cursor: 'grab', color: '#666' }} /></div>
+          <div className="card-icon">
+            <MdDragIndicator
+              size={24}
+              style={{ cursor: "grab", color: "#666" }}
+            />
+          </div>
           <div>
             <h3 className="card-title">{exercise.name}</h3>
             {!isActive && (
@@ -150,6 +94,9 @@ export default function ExerciseCard({
         >
           <div className="lcd-screen" style={{ padding: "5px 15px" }}>
             <div className="pixel-grid-overlay"></div>
+            <div className="status-indicator">
+              {isBreak ? "REST TIME" : isRunning ? "PLAYING" : "READY"}
+            </div>
             <div className="timer-display-retro" style={{ fontSize: "3.5rem" }}>
               {formatTime(timeLeft)}
             </div>
