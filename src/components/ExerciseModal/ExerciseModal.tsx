@@ -95,7 +95,6 @@ export default function ExerciseModal({ exercise, onClose, onSave }: ExerciseMod
     
     const dataToSave = {
         name: formData.name,
-        desc: formData.desc,
         durationMinutes: parseTime(formData.duration),
         currentBpmRecord: Number(formData.currentBpmRecord),
         bpmGoal: Number(formData.bpmGoal)

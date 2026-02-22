@@ -14,6 +14,7 @@ import {
 import type { Exercise } from "../types";
 import ExerciseList from "../components/ExerciseList/ExerciseList";
 import Skeleton from "react-loading-skeleton";
+import { MdPlayCircleOutline, MdPlaylistPlay } from "react-icons/md";
 
 const Dashboard: React.FC = () => {
   const [selectedExerciseId, setSelectedExerciseId] = useState<string | null>(
@@ -149,7 +150,6 @@ const Dashboard: React.FC = () => {
     setIsModalOpen(true);
   };
 
-  // if (loading) return <Skeleton count={5}/>;
   if (error) return <div style={{ color: "red" }}>{error}</div>;
 
   return (
@@ -182,6 +182,20 @@ const Dashboard: React.FC = () => {
               ) : (
                 <>
                   <h2 className="playlist-title">Sua Playlist</h2>
+                  <div className="list-mode-toggle">
+                              <button 
+                                  className={`mode-btn ${playMode === 'simple' ? 'active' : ''}`}
+                                  // onClick={() => onToggleMode('simple')}
+                              >
+                                 <MdPlayCircleOutline />
+                              </button>
+                              <button 
+                                  className={`mode-btn ${playMode === 'list' ? 'active' : ''}`}
+                                  // onClick={() => onToggleMode('list')}
+                              >
+                                  <MdPlaylistPlay />
+                              </button>
+                          </div>
                   <span className="playlist-count">
                     {exercises.length} itens
                   </span>

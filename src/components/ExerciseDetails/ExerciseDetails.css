@@ -93,3 +93,40 @@
 .box-value small {
     font-size: 0.875rem; 
 }
+
+.details-box.primary.is-fire {
+  background: linear-gradient(135deg, #ff8c42, #ffaf64);
+  border: 2px solid #fff;
+  box-shadow: 0 0 12px rgba(255, 140, 66, 0.4);
+  animation: fire-pulse 1.5s infinite alternate;
+  color: white;
+}
+
+.details-box.primary.is-fire .box-label,
+.details-box.primary.is-fire .box-value {
+  color: white;
+}
+
+.fire-icon {
+  margin-right: 4px;
+  animation: shake 0.5s infinite;
+  display: inline-block;
+}
+
+@keyframes fire-pulse {
+  from { 
+    box-shadow: 0 0 8px rgba(255, 140, 66, 0.3); 
+    transform: scale(1);
+  }
+  to { 
+    box-shadow: 0 0 16px rgba(255, 175, 100, 0.5); 
+    transform: scale(1.02); /* Leve pulso para dar vida */
+  }
+}
+
+@keyframes shake {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(-10deg); }
+  75% { transform: rotate(10deg); }
+  100% { transform: rotate(0deg); }
+}

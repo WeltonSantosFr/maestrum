@@ -60,7 +60,7 @@ export default function ExerciseList({
   selectedExerciseId, 
   onSelectExercise, 
   onDeleteExercise, 
-  onEditExercise 
+  onEditExercise
 }: ExerciseListProps) {
   const [items, setItems] = useState<Exercise[]>([]);
 

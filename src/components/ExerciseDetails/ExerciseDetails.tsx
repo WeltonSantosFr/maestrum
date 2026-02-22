@@ -51,6 +51,7 @@ export default function ExerciseDetails({ exercise, loading }: ExerciseDetailsPr
 
   const { name, desc, currentBpmRecord, bpmGoal, icon = '🎸' } = exercise;
   const targetBpm = bpmGoal
+  const isGoalReached = currentBpmRecord >= bpmGoal;
 
   return (
     <div className="details-container">
@@ -65,8 +66,11 @@ export default function ExerciseDetails({ exercise, loading }: ExerciseDetailsPr
       </div>
 
       <div className="details-grid">
-        <div className="details-box primary">
-          <span className="box-label">Atual</span>
+        <div className={`details-box primary ${isGoalReached ? 'is-fire' : ''}`}>
+          <span className="box-label">
+            {isGoalReached && <span className="fire-icon">🔥</span>}
+            Atual
+          </span>
           <span className="box-value">{currentBpmRecord} <small>BPM</small></span>
         </div>
         <div className="details-box secondary">
